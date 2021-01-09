@@ -4,7 +4,7 @@ public class GroundMovement : MonoBehaviour
 {
 
     [Tooltip("Movement is relative to the reference transform. This is usually a Camera or the root transform.")]
-    [SerializeField] protected Transform reference = default;
+    [SerializeField] protected Transform directionReference = default;
     
     [Tooltip("Ground component that checks wether the player is grounded and can move.")]
     [SerializeField] protected Grounding grounding = default;
@@ -35,8 +35,43 @@ public class GroundMovement : MonoBehaviour
         new Keyframe(40.0f, 0.6f),
         new Keyframe(70.0f, 0.0f));
     
-    public Vector2 MovementInput { get; set; }
+    public enum MovementPlane { XY,XZ, YZ}
+    [SerializeField] private MovementPlane movementPlane;
+
+    private Vector2 movementInput;
+    public Vector2 MovementInput
+    {
+        get { return movementInput; }
+        set
+        {
+            movementInput = value;
+            if (movementInput.magnitude > 1)
+            {
+                movementInput.Normalize();
+            }
+        }
+    }
+
     public bool Run { get; set; }
+
+    private Vector3 DesiredMovementDirection
+    {
+        get
+        {
+            switch (movementPlane)
+            {
+                case MovementPlane.XY:
+                    return directionReference.transform.right * MovementInput.x 
+                        + directionReference.transform.up * MovementInput.y;
+                case MovementPlane.XZ:
+                    return directionReference.transform.right * MovementInput.x + directionReference.transform.forward * MovementInput.y;
+                default:
+                    return directionReference.transform.up * MovementInput.x 
+                        + directionReference.transform.forward * MovementInput.y;
+            }
+        }
+    }
+
 
     protected float SlopeMultiplier
     {
@@ -55,12 +90,18 @@ public class GroundMovement : MonoBehaviour
         if (MovementInput == Vector2.zero)
             return;
 
-        float inputAngle = Mathf.Atan2(MovementInput.y, MovementInput.x) * Mathf.Rad2Deg;
-        
+        //float inputAngle = Mathf.Atan2(MovementInput.y, MovementInput.x) * Mathf.Rad2Deg;
+
+        Vector3 movDir = DesiredMovementDirection.normalized;
+        Vector3 cross = Vector3.Cross(movDir, transform.forward);
+        float inputAngle = Vector3.SignedAngle(movDir, transform.forward, cross);
+
         currentTargetSpeed = 
             baseSpeed
             * directionSpeedFactor.Evaluate(inputAngle)
             * (Run ? runMultiplier : 1);
+
+        Debug.Log(currentTargetSpeed);
     }
 
     public Vector3 Velocity
@@ -71,37 +112,33 @@ public class GroundMovement : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        Vector2 input = MovementInput;
-        float velocityMagnitude = grounding.Rigidbody.velocity.magnitude;
-        if (Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon)
+        if (Mathf.Abs(MovementInput.x) > float.Epsilon || Mathf.Abs(MovementInput.y) > float.Epsilon)
         {
             if (grounding.Grounded)
             {
+                float velocityMagnitude = grounding.Rigidbody.velocity.magnitude;
                 UpdateDesiredTargetSpeed();
-                Vector3 desiredMove = reference.transform.forward * input.y + reference.transform.right * input.x;
+                Vector3 desiredMove = DesiredMovementDirection;
                 
                 desiredMove = Vector3.ProjectOnPlane(desiredMove, grounding.ContactNormal);
-                desiredMove = desiredMove.normalized * currentTargetSpeed; //TODO: Revaluate why I need currentTargetSpeed here
-                grounding.DinamicDrag = true;
+                desiredMove = desiredMove.normalized;
 
                 if (velocityMagnitude < currentTargetSpeed)
                 {
-                    Vector3 rawImpulse = desiredMove * SlopeMultiplier * motorForce;
-
-                    float rawFinalSpeed = velocityMagnitude + rawImpulse.magnitude * Time.fixedDeltaTime / grounding.Rigidbody.mass;
-                    float overlapSpeed = rawFinalSpeed - currentTargetSpeed;
+                    Vector3 rawImpulse = desiredMove * SlopeMultiplier * motorForce * MovementInput.magnitude;
                     
-                    float overlapImpulse = overlapSpeed * grounding.Rigidbody.mass;
-
-                    Vector3 clampedImpulse = overlapSpeed < 0
-                        ? rawImpulse
-                        : rawImpulse.normalized * (rawImpulse.magnitude - overlapImpulse);
-
+                    Vector3 clampedImpulse = 
+                        rawImpulse.normalized 
+                        * Mathf.Clamp(
+                            rawImpulse.magnitude,
+                            0,
+                            currentTargetSpeed * grounding.Rigidbody.mass / Time.fixedDeltaTime);
 
                     grounding.Rigidbody.AddForce(clampedImpulse);
                 }
+                grounding.DinamicDrag = true;
             }
-            
+
         }
         else
         {
