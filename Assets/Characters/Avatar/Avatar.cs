@@ -23,10 +23,19 @@ public class Avatar : Character
     }
 
 
-    public void OnMovement(InputAction.CallbackContext context)
+    public void OnMovementInput(InputAction.CallbackContext context)
     {
         movement.MovementInput = context.ReadValue<Vector2>();
     }
+    public void OnDirectionLookInput(InputAction.CallbackContext context)
+    {
+        Debug.Log(GetComponent<PlayerInput>().currentControlScheme);
+    }
+    public void OnScreenLookInput(InputAction.CallbackContext context)
+    {
+        Debug.Log(GetComponent<PlayerInput>().currentControlScheme);
+    }
+
 
     public void OnAttack()
     {

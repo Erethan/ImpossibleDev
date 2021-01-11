@@ -101,7 +101,6 @@ public class GroundMovement : MonoBehaviour
             * directionSpeedFactor.Evaluate(inputAngle)
             * (Run ? runMultiplier : 1);
 
-        Debug.Log(currentTargetSpeed);
     }
 
     public Vector3 Velocity
