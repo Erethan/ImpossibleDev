@@ -761,9 +761,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d562977dd799a94184a298e5684dfd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grounding: {fileID: 7966680058413439169}
-  _rotationSpeed: 1
+  _grounding: {fileID: 7966680058413439169}
+  _rotationSpeed: 0.25
   _secondsToIdle: 0.1
+  _movement: {fileID: 2809078511332014387}
 --- !u!1 &3705588533069625798
 GameObject:
   m_ObjectHideFlags: 0
@@ -1337,7 +1338,7 @@ MonoBehaviour:
   _rotator: {fileID: 7882649299725601298}
   animator: {fileID: 5746212807573269124}
   _swordHitbox: {fileID: 0}
-  _swordHitType: {fileID: 0}
+  _swordHitType: {fileID: 11400000, guid: 387d0eddcbc2918468a4e1c45b59325e, type: 2}
 --- !u!136 &5746212807573269122
 CapsuleCollider:
   m_ObjectHideFlags: 0
