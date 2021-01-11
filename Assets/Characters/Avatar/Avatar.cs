@@ -6,36 +6,22 @@ using UnityEngine.InputSystem;
 public class Avatar : Character
 {
 
-    [SerializeField] protected Rigidbody avatarRigidbody = default;
-    [SerializeField] protected GroundMovement movement = default;
+    [SerializeField] protected Rigidbody _avatarRigidbody = default;
+    [SerializeField] protected GroundMovement _movement = default;
+    [SerializeField] protected GroundRotation _rotator = default;
     [SerializeField] protected Animator animator = default;
 
     [Header("Actions")]
-    [SerializeField] private Hitbox swordHitbox = default;
-    [SerializeField] private HitType swordHitType = default;
+    [SerializeField] private Hitbox _swordHitbox = default;
+    [SerializeField] private HitType _swordHitType = default;
 
     protected bool staggered = false;
     
     private void Start()
     {
-        swordHitbox.Hit += OnAttackHit;
-        swordHitbox.enabled = false;
+        _swordHitbox.Hit += OnAttackHit;
+        _swordHitbox.enabled = false;
     }
-
-
-    public void OnMovementInput(InputAction.CallbackContext context)
-    {
-        movement.MovementInput = context.ReadValue<Vector2>();
-    }
-    public void OnDirectionLookInput(InputAction.CallbackContext context)
-    {
-        Debug.Log(GetComponent<PlayerInput>().currentControlScheme);
-    }
-    public void OnScreenLookInput(InputAction.CallbackContext context)
-    {
-        Debug.Log(GetComponent<PlayerInput>().currentControlScheme);
-    }
-
 
     public void OnAttack()
     {
@@ -54,15 +40,15 @@ public class Avatar : Character
         }
 
         staggered = value;
-        movement.enabled = !staggered;
+        _movement.enabled = !staggered;
     }
 
     private void Update()
     {
         
         //Movement animation parameters
-        Vector3 fowardVelocity = Vector3.Project(avatarRigidbody.velocity, transform.forward);
-        Vector3 rightVelocity = Vector3.Project(avatarRigidbody.velocity, transform.right);
+        Vector3 fowardVelocity = Vector3.Project(_avatarRigidbody.velocity, transform.forward);
+        Vector3 rightVelocity = Vector3.Project(_avatarRigidbody.velocity, transform.right);
         int fowardSpeedSign = Vector3.Angle(fowardVelocity, transform.forward) < 90 ? 1 : -1;
         int rightSpeedSign = Vector3.Angle(fowardVelocity, transform.forward) < 90 ? 1 : -1;
 
@@ -79,20 +65,41 @@ public class Avatar : Character
 
     private void OnAttackHit(Hitbox hitbox, HitReceiver receiver)
     {
-        receiver.Hit(swordHitType);
+        receiver.Hit(_swordHitType);
     }
 
+
+    #region Input
+    public void OnMovementInput(InputAction.CallbackContext context)
+    {
+        _movement.MovementInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnDirectionLookInput(InputAction.CallbackContext context)
+    {
+        _rotator.RotationInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnScreenLookInput(InputAction.CallbackContext context)
+    {
+        Vector2 input = context.ReadValue<Vector2>();
+        Vector3 avatarScreenPosition = Camera.main.WorldToScreenPoint(transform.position);
+        input.Set(input.x - avatarScreenPosition.x, input.y - avatarScreenPosition.y);
+
+        _rotator.RotationInput = input;
+    }
+    #endregion
 
     #region Animation Events
     private void OnAxeSlashStart()
     {
-        swordHitbox.enabled = true;
+        _swordHitbox.enabled = true;
     }
 
     private void OnAxeSlashEnd()
     {
         
-        swordHitbox.enabled = false;
+        _swordHitbox.enabled = false;
     }
 
     private void OnHitRecoveryAnimationEvent()

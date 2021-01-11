@@ -3,6 +3,17 @@
 public class Grounding : MonoBehaviour
 {
 
+
+    [Tooltip("Input direction is relative to the reference transform if different than null. This is usually a Camera or the character's root transform.")]
+    [SerializeField] protected Transform _directionReference = default;
+    public Transform DirectionReference => _directionReference;
+
+    public enum Axis { X, Y, Z }
+
+    [Tooltip("Movement and rotation is relative to the plane defined by NormalAxis.")]
+    [SerializeField] private Axis _normalAxis = Axis.Y;
+    public Axis NormalAxis => _normalAxis;
+
     [SerializeField] private Rigidbody _rigidbody = default;
     [SerializeField] private float _sphereCastRadius= 0.01f;
     [SerializeField] private float _contactDistance = 0.5f;

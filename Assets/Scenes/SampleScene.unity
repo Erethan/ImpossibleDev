@@ -7682,6 +7682,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1915299468567883326, guid: 8e51b3b8f06e1c14ea21a61df8286e5b, type: 3}
+      propertyPath: _swordHitbox
+      value: 
+      objectReference: {fileID: 2002729910}
+    - target: {fileID: 1915299468567883326, guid: 8e51b3b8f06e1c14ea21a61df8286e5b, type: 3}
+      propertyPath: _swordHitType
+      value: 
+      objectReference: {fileID: 11400000, guid: 387d0eddcbc2918468a4e1c45b59325e, type: 2}
     - target: {fileID: 2809078511332014387, guid: 8e51b3b8f06e1c14ea21a61df8286e5b, type: 3}
       propertyPath: directionReference
       value: 
@@ -7734,6 +7742,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Avatar
       objectReference: {fileID: 0}
+    - target: {fileID: 7882649299725601298, guid: 8e51b3b8f06e1c14ea21a61df8286e5b, type: 3}
+      propertyPath: _secondsToIdle
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7966680058413439169, guid: 8e51b3b8f06e1c14ea21a61df8286e5b, type: 3}
+      propertyPath: _directionReference
+      value: 
+      objectReference: {fileID: 2046716087}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e51b3b8f06e1c14ea21a61df8286e5b, type: 3}
 --- !u!1 &667224379

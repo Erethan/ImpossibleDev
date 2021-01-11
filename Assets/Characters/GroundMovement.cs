@@ -3,9 +3,6 @@
 public class GroundMovement : MonoBehaviour
 {
 
-    [Tooltip("Movement is relative to the reference transform. This is usually a Camera or the root transform.")]
-    [SerializeField] protected Transform directionReference = default;
-    
     [Tooltip("Ground component that checks wether the player is grounded and can move.")]
     [SerializeField] protected Grounding grounding = default;
 
@@ -35,8 +32,6 @@ public class GroundMovement : MonoBehaviour
         new Keyframe(40.0f, 0.6f),
         new Keyframe(70.0f, 0.0f));
     
-    public enum MovementPlane { XY,XZ, YZ}
-    [SerializeField] private MovementPlane movementPlane;
 
     private Vector2 movementInput;
     public Vector2 MovementInput
@@ -58,16 +53,17 @@ public class GroundMovement : MonoBehaviour
     {
         get
         {
-            switch (movementPlane)
+            switch (grounding.NormalAxis)
             {
-                case MovementPlane.XY:
-                    return directionReference.transform.right * MovementInput.x 
-                        + directionReference.transform.up * MovementInput.y;
-                case MovementPlane.XZ:
-                    return directionReference.transform.right * MovementInput.x + directionReference.transform.forward * MovementInput.y;
+                case Grounding.Axis.Z:
+                    return grounding.DirectionReference.transform.right * MovementInput.x 
+                        + grounding.DirectionReference.transform.up * MovementInput.y;
+                case Grounding.Axis.Y:
+                    return grounding.DirectionReference.transform.right * MovementInput.x 
+                        + grounding.DirectionReference.transform.forward * MovementInput.y;
                 default:
-                    return directionReference.transform.up * MovementInput.x 
-                        + directionReference.transform.forward * MovementInput.y;
+                    return grounding.DirectionReference.transform.up * MovementInput.x 
+                        + grounding.DirectionReference.transform.forward * MovementInput.y;
             }
         }
     }
@@ -90,7 +86,6 @@ public class GroundMovement : MonoBehaviour
         if (MovementInput == Vector2.zero)
             return;
 
-        //float inputAngle = Mathf.Atan2(MovementInput.y, MovementInput.x) * Mathf.Rad2Deg;
 
         Vector3 movDir = DesiredMovementDirection.normalized;
         Vector3 cross = Vector3.Cross(movDir, transform.forward);

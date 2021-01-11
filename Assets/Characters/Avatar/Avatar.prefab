@@ -616,6 +616,7 @@ GameObject:
   - component: {fileID: 9146069898187983970}
   - component: {fileID: 7966680058413439169}
   - component: {fileID: 2809078511332014387}
+  - component: {fileID: 7882649299725601298}
   m_Layer: 0
   m_Name: Locomotion
   m_TagString: Untagged
@@ -649,6 +650,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61aca9a09369cb74dbf111821ee8f113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _directionReference: {fileID: 0}
+  _normalAxis: 1
   _rigidbody: {fileID: 5746212807573269123}
   _sphereCastRadius: 0.01
   _contactDistance: 0.5
@@ -667,7 +670,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a2b7653c320154cbaa7b69c1372226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionReference: {fileID: 0}
   grounding: {fileID: 7966680058413439169}
   motorForce: 15000
   baseSpeed: 5
@@ -747,7 +749,21 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  movementPlane: 1
+--- !u!114 &7882649299725601298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3442335036039480690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d562977dd799a94184a298e5684dfd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grounding: {fileID: 7966680058413439169}
+  _rotationSpeed: 1
+  _secondsToIdle: 0.1
 --- !u!1 &3705588533069625798
 GameObject:
   m_ObjectHideFlags: 0
@@ -1316,11 +1332,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d133380652a9a44a845e7ecb1d687d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avatarRigidbody: {fileID: 5746212807573269123}
-  movement: {fileID: 2809078511332014387}
+  _avatarRigidbody: {fileID: 5746212807573269123}
+  _movement: {fileID: 2809078511332014387}
+  _rotator: {fileID: 7882649299725601298}
   animator: {fileID: 5746212807573269124}
-  swordHitbox: {fileID: 2026588439939800654}
-  swordHitType: {fileID: 11400000, guid: 387d0eddcbc2918468a4e1c45b59325e, type: 2}
+  _swordHitbox: {fileID: 0}
+  _swordHitType: {fileID: 0}
 --- !u!136 &5746212807573269122
 CapsuleCollider:
   m_ObjectHideFlags: 0

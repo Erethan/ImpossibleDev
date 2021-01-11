@@ -187,7 +187,7 @@ public class @ImpossibleDev : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8c8e490b-c610-4785-884f-f04217b23ca4"",
-                    ""path"": ""<Pointer>/delta"",
+                    ""path"": ""<Pointer>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse;Touch"",
@@ -255,7 +255,7 @@ public class @ImpossibleDev : IInputActionCollection, IDisposable
                     ""id"": ""c9f93ab1-ee36-4134-84a8-8bbbfcab575d"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone"",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Direction Look"",
                     ""isComposite"": false,
