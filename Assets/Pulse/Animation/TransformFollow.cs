@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Timeline;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TransformFollow : MonoBehaviour
 {
