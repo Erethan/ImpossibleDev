@@ -23,20 +23,13 @@ public class Avatar : Character
         _swordHitbox.enabled = false;
     }
 
-    public void OnAttack()
-    {
-        if (!staggered)
-        {
-           //animator.SetInteger(AnimationParameterConventions.ActionsParameterName, 1);
-        }
-    }
-
+    
 
     protected virtual void Stagger(bool value)
     {
         if (!staggered && value)
         {
-            //animator.SetInteger(AnimationParameterConventions.HitTypeParameterName, 1);
+            animator.SetInteger(CharacterAnimationConventions.HitTypeParameterName, 1);
         }
 
         staggered = value;
@@ -52,10 +45,16 @@ public class Avatar : Character
         int fowardSpeedSign = Vector3.Angle(fowardVelocity, transform.forward) < 90 ? 1 : -1;
         int rightSpeedSign = Vector3.Angle(fowardVelocity, transform.forward) < 90 ? 1 : -1;
 
-        //animator.SetFloat(AnimationParameterConventions.ForwardSpeedParameterName, fowardVelocity.magnitude * fowardSpeedSign);
-        //animator.SetFloat(AnimationParameterConventions.StrafeSpeedParameterName, rightVelocity.magnitude * rightSpeedSign);
+        animator.SetFloat(CharacterAnimationConventions.ForwardSpeedParameterName, fowardVelocity.magnitude * fowardSpeedSign);
+        animator.SetFloat(CharacterAnimationConventions.StrafeSpeedParameterName, rightVelocity.magnitude * rightSpeedSign);
 
       
+    }
+
+   
+    private void OnAttackHit(Hitbox hitbox, HitReceiver receiver)
+    {
+        receiver.Hit(_swordHitType);
     }
 
     public void ReceiveHit()
@@ -63,13 +62,8 @@ public class Avatar : Character
         Stagger(true);
     }
 
-    private void OnAttackHit(Hitbox hitbox, HitReceiver receiver)
-    {
-        receiver.Hit(_swordHitType);
-    }
 
-
-    #region Input
+    #region Input Events
     public void OnMovementInput(InputAction.CallbackContext context)
     {
         _movement.MovementInput = context.ReadValue<Vector2>();
@@ -88,21 +82,30 @@ public class Avatar : Character
 
         _rotator.RotationInput = input;
     }
+
+    public void OnAttackInput(InputAction.CallbackContext context)
+    {
+        if (!staggered && _movement.enabled)
+        {
+            animator.SetInteger(CharacterAnimationConventions.ActionsParameterName, 1);
+        }
+    }
+
     #endregion
 
     #region Animation Events
-    private void OnAxeSlashStart()
+    private void OnAttackStart()
     {
         _swordHitbox.enabled = true;
     }
 
-    private void OnAxeSlashEnd()
+    private void OnAttackEnd()
     {
         
         _swordHitbox.enabled = false;
     }
 
-    private void OnHitRecoveryAnimationEvent()
+    private void OnRecovered()
     {
         Stagger(false);
     }
