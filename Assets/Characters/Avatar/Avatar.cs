@@ -71,16 +71,15 @@ public class Avatar : Character
 
     public void OnDirectionLookInput(InputAction.CallbackContext context)
     {
+        _rotator.Mode = GroundRotation.InputMode.Directional;
         _rotator.RotationInput = context.ReadValue<Vector2>();
     }
 
     public void OnScreenLookInput(InputAction.CallbackContext context)
     {
-        Vector2 input = context.ReadValue<Vector2>();
-        Vector3 avatarScreenPosition = Camera.main.WorldToScreenPoint(transform.position);
-        input.Set(input.x - avatarScreenPosition.x, input.y - avatarScreenPosition.y);
+        _rotator.Mode = GroundRotation.InputMode.ScreenPosition;
+        _rotator.RotationInput = context.ReadValue<Vector2>();
 
-        _rotator.RotationInput = input;
     }
 
     public void OnAttackInput(InputAction.CallbackContext context)

@@ -18,25 +18,46 @@ public class GroundRotation : MonoBehaviour
     [Tooltip("Rotates towards movement input when no rotation input is provided.")]
     [SerializeField] protected GroundMovement _movement = default;
 
+    public bool IgnoreRotationInputWhenIdle { get; set; } = true;
+    public bool IsIdle => Time.time > _lastInputTime + _secondsToIdle;
     protected float _lastInputTime;
-    public bool IgnoreWhenIdle { get; set; } = true;
+
+
+    public enum InputMode { Directional, ScreenPosition}
+    public InputMode Mode { get; set; }
 
     protected Quaternion _rotationTarget = Quaternion.identity;
-    protected Vector2 _rotationInput;
+    protected Vector2 _rotationInput = new Vector3();
     public Vector2 RotationInput
     {
-        get { return _rotationInput; }
+        get 
+        {
+            float inputAngle;
+            switch (Mode)
+            {
+                case InputMode.Directional:
+                    inputAngle = 90 - (Mathf.Atan2(_rotationInput.y, _rotationInput.x) * Mathf.Rad2Deg);
+                    if (_rotationInput.sqrMagnitude > 1)
+                    {
+                        _rotationInput.Normalize();
+                    }
+                    break;
+                case InputMode.ScreenPosition:
+                    Vector3 avatarScreenPosition = Camera.main.WorldToScreenPoint(_grounding.Rigidbody.position);
+                    avatarScreenPosition.Set(_rotationInput.x - avatarScreenPosition.x, _rotationInput.y - avatarScreenPosition.y, 0);
+                    inputAngle = 90 - (Mathf.Atan2(avatarScreenPosition.y, avatarScreenPosition.x) * Mathf.Rad2Deg);
+                    break;
+                default:
+                    return Vector3.zero;
+            }
+
+           
+            _rotationTarget = AngleToRotation(inputAngle);
+            return _rotationInput;
+        }
         set
         {
             _rotationInput = value;
-            if (_rotationInput.sqrMagnitude > 1)
-            {
-                _rotationInput.Normalize();
-            }
-
-            float inputAngle = 90 - (Mathf.Atan2(_rotationInput.y, _rotationInput.x) * Mathf.Rad2Deg);
-            
-            _rotationTarget = AngleToRotation(inputAngle);
             _lastInputTime = Time.time;
         }
     }
@@ -59,23 +80,22 @@ public class GroundRotation : MonoBehaviour
 
         if (_grounding.Grounded)
         {
-            bool isIdle = Time.time > _lastInputTime + _secondsToIdle;
-            bool hasRotationInput = _rotationInput.sqrMagnitude > float.Epsilon;
+            bool hasRotationInput = RotationInput.sqrMagnitude > float.Epsilon;
             bool hasMovementInput = _movement.MovementInput.sqrMagnitude > float.Epsilon;
-
-            if (IgnoreWhenIdle 
-                && isIdle)
+            
+            if (IgnoreRotationInputWhenIdle 
+                && IsIdle)
             {
-                if (_grounding.Rigidbody.velocity.sqrMagnitude > float.Epsilon && !hasRotationInput)
+                if (_grounding.Rigidbody.velocity.sqrMagnitude > float.Epsilon && !hasRotationInput )
                 {
                     float movementAngle = Mathf.Atan2(_movement.MovementInput.y, _movement.MovementInput.x) * Mathf.Rad2Deg;
                     _rotationTarget = AngleToRotation(90 - movementAngle);
                 }
             }
 
-            
-            if( (!isIdle && hasRotationInput)
-                || (isIdle && hasMovementInput))
+
+            if ((!IsIdle && hasRotationInput) 
+                || (IsIdle && hasMovementInput))
             {
                 _grounding.Rigidbody.MoveRotation(RotationStep);
             }
