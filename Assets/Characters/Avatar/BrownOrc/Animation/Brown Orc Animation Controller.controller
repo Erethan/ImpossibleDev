@@ -6,7 +6,7 @@ BlendTree:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Moving Tree
+  m_Name: Forward Tree
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 2eb614681e9782642a88b7010946f91d, type: 2}
@@ -297,25 +297,25 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: StrafeSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ActionType
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: HitType
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -339,7 +339,7 @@ BlendTree:
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 039a15ec7881f694985e2c5a4a58281c, type: 2}
-    m_Threshold: -5
+    m_Threshold: -1.5
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1.5
     m_CycleOffset: 0
@@ -347,7 +347,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 641725d1f114c1a4e8d175bc2884106f, type: 2}
-    m_Threshold: -0.5
+    m_Threshold: -1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 0.2
     m_CycleOffset: 0
@@ -355,7 +355,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 641725d1f114c1a4e8d175bc2884106f, type: 2}
-    m_Threshold: 0.5
+    m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 0.2
     m_CycleOffset: 0
@@ -363,7 +363,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: -9067100045494188822}
-    m_Threshold: 4
+    m_Threshold: 1.5
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -371,8 +371,8 @@ BlendTree:
     m_Mirror: 0
   m_BlendParameter: FowardSpeed
   m_BlendParameterY: FowardVelocity
-  m_MinThreshold: -5
-  m_MaxThreshold: 7.5
+  m_MinThreshold: -1.5
+  m_MaxThreshold: 1.5
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -493,12 +493,12 @@ AnimatorStateMachine:
   - {fileID: -608319821285483706}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: -4665308792457926770}
-    second:
-    - {fileID: -8385706347894915716}
   - first: {fileID: -8200723964892788958}
     second:
     - {fileID: -8326319645289319653}
+  - first: {fileID: -4665308792457926770}
+    second:
+    - {fileID: -8385706347894915716}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}

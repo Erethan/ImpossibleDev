@@ -43,7 +43,7 @@ public class Avatar : Character
         Vector3 fowardVelocity = Vector3.Project(_avatarRigidbody.velocity, transform.forward);
         Vector3 rightVelocity = Vector3.Project(_avatarRigidbody.velocity, transform.right);
         int fowardSpeedSign = Vector3.Angle(fowardVelocity, transform.forward) < 90 ? 1 : -1;
-        int rightSpeedSign = Vector3.Angle(fowardVelocity, transform.forward) < 90 ? 1 : -1;
+        int rightSpeedSign = Vector3.Angle(rightVelocity, transform.forward) < 90 ? 1 : -1;
 
         animator.SetFloat(CharacterAnimationConventions.ForwardSpeedParameterName, fowardVelocity.magnitude * fowardSpeedSign);
         animator.SetFloat(CharacterAnimationConventions.StrafeSpeedParameterName, rightVelocity.magnitude * rightSpeedSign);
