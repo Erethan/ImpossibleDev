@@ -656,8 +656,7 @@ MonoBehaviour:
   _sphereCastRadius: 0.01
   _contactDistance: 0.5
   _airDrag: 0.1
-  _groundDrag: 20
-  _dinamicDragFactor: 0.6
+  _staticDrag: 10
 --- !u!114 &2809078511332014387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,16 +669,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a2b7653c320154cbaa7b69c1372226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grounding: {fileID: 7966680058413439169}
-  motorForce: 15000
-  baseSpeed: 5
-  runMultiplier: 1.5
-  directionSpeedFactor:
+  _grounding: {fileID: 7966680058413439169}
+  _motorForce: 4
+  _baseSpeed: 8
+  _runMultiplier: 1.5
+  _directionSpeedFactor:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -688,7 +687,7 @@ MonoBehaviour:
       outWeight: 0
     - serializedVersion: 3
       time: 90
-      value: 0.75
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -704,10 +703,28 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 270
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 360
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  slopeCurveModifier:
+  _slopeCurveModifier:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -740,6 +757,31 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 70
       value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _dinamicDragFactor: 0.25
+  _directionalDrag:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 180
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

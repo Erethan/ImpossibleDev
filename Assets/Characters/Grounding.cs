@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Grounding : MonoBehaviour
 {
@@ -14,17 +15,14 @@ public class Grounding : MonoBehaviour
     [SerializeField] private Axis _normalAxis = Axis.Y;
     public Axis NormalAxis => _normalAxis;
 
+    [Header("Drag")]
     [SerializeField] private Rigidbody _rigidbody = default;
-    [SerializeField] private float _sphereCastRadius= 0.01f;
+    [SerializeField] private float _sphereCastRadius = 0.01f;
     [SerializeField] private float _contactDistance = 0.5f;
     [SerializeField] private float _airDrag = 0.1f;
-    [SerializeField] private float _groundDrag = 10;
+    [SerializeField] private float _staticDrag = 10;
     
-    [Tooltip("The ratio of the drag when its rigidbody is moving")]
-    [Range(0,1)][SerializeField] private float _dinamicDragFactor = 0.25f;
 
-
-    private float _floatingEndTime;
 
     public Rigidbody Rigidbody { get { return _rigidbody; }}
     public Vector3 ContactPosition { get; private set; }
@@ -32,9 +30,33 @@ public class Grounding : MonoBehaviour
     public bool Grounded { get; private set; }
     public bool AllowGroundContact { get; set; } = true;
     
-    //TODO: Make DinamicFriction private as other classes should not freely control it. Instead, either check if the rigidbody velicity is greater than a threshold, make a public method to 'declare intent of moving' or change it to 'Attached/Rooted' to the ground .
-    public bool DinamicDrag { get; set; } = false; 
+    private List<DragFactorSource> _externalSourcesDragFactors = new List<DragFactorSource>();
+    public int AddDragFactor(DragFactorSource dragSource)
+    {
+        _externalSourcesDragFactors.Add(dragSource);
+        return _externalSourcesDragFactors.Count;
+    }
+    public void RemoveDragFactor(int sourceIndex) => _externalSourcesDragFactors.RemoveAt(sourceIndex);
+    public void RemoveDragFactor(DragFactorSource dragSource) => _externalSourcesDragFactors.Remove(dragSource);
     
+    public float ExternalSourcesDragFactor
+    {
+        get
+        {
+            float externalDrag = 1;
+            for (int i = 0; i < _externalSourcesDragFactors.Count; i++)
+            {
+                externalDrag *= _externalSourcesDragFactors[i].Value;
+            }
+            return externalDrag;
+        }
+    }
+
+
+    protected float _floatingEndTime;
+
+  
+
     
     public Vector3 FarthestGroundingPostion
     {
@@ -68,17 +90,14 @@ public class Grounding : MonoBehaviour
             Grounded = true;
             ContactNormal = hitInfo.normal;
             ContactPosition = hitInfo.point;
-            _rigidbody.drag = _groundDrag;
-            if(DinamicDrag)
-            {
-                _rigidbody.drag *= _dinamicDragFactor;
-            }
+            _rigidbody.drag = _staticDrag * ExternalSourcesDragFactor;
+            
         }
         else
         {
             Grounded = false;
             ContactNormal = Vector3.up;
-            _rigidbody.drag = _airDrag;
+            _rigidbody.drag = _airDrag * ExternalSourcesDragFactor;
         }
     }
 
