@@ -656,7 +656,8 @@ MonoBehaviour:
   _sphereCastRadius: 0.01
   _contactDistance: 0.5
   _airDrag: 0.1
-  _staticDrag: 10
+  _staticDrag: 20
+  _relativeDirectionalDrag: {x: 0, y: 0, z: 0}
 --- !u!114 &2809078511332014387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,7 +671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grounding: {fileID: 7966680058413439169}
-  _motorForce: 4
+  _motorForce: 10000
   _baseSpeed: 8
   _runMultiplier: 1.5
   _directionSpeedFactor:
@@ -678,15 +679,6 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.5
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 90
       value: 1
       inSlope: 0
       outSlope: 0
@@ -695,25 +687,16 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
+      time: 90
+      value: 0.7
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
       time: 180
-      value: 0.5
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 270
-      value: 0.5
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 360
       value: 0.5
       inSlope: 0
       outSlope: 0

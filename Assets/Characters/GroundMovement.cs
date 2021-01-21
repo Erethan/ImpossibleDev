@@ -19,11 +19,9 @@ public class GroundMovement : MonoBehaviour
 
     [Tooltip("Factor applied on Base Speed to access maximum speed in each different input direction. This function domain is input angle and its image is the ratio of the force applied.")]
     [SerializeField]protected AnimationCurve _directionSpeedFactor = new AnimationCurve(
-        new Keyframe(0, 0.5f),
-        new Keyframe(90, 1f),
-        new Keyframe(180, 0.5f),
-        new Keyframe(270, 0.5f),
-        new Keyframe(360, 0.5f));
+        new Keyframe(0, 1),
+        new Keyframe(90, 0.7f),
+        new Keyframe(180, 0.5f));
 
     [Tooltip("Factor applied on Base Speed do slowdown movement when climbing slopes. It receives the slope angle and it returns the raito of the force that is applied.")]
     [SerializeField] protected AnimationCurve _slopeCurveModifier = new AnimationCurve(
@@ -69,18 +67,9 @@ public class GroundMovement : MonoBehaviour
     {
         get
         {
-            switch (_grounding.NormalAxis)
-            {
-                case Grounding.Axis.Z:
-                    return _grounding.DirectionReference.transform.right * MovementInput.x 
-                        + _grounding.DirectionReference.transform.up * MovementInput.y;
-                case Grounding.Axis.Y:
-                    return _grounding.DirectionReference.transform.right * MovementInput.x 
-                        + _grounding.DirectionReference.transform.forward * MovementInput.y;
-                default:
-                    return _grounding.DirectionReference.transform.up * MovementInput.x 
-                        + _grounding.DirectionReference.transform.forward * MovementInput.y;
-            }
+            Vector3 forwardReference = Vector3.ProjectOnPlane(_grounding.DirectionReference.transform.up, _grounding.ContactNormal).normalized;
+            Vector3 rightReference = Vector3.Cross(forwardReference, -_grounding.ContactNormal).normalized;
+            return forwardReference * MovementInput.y + rightReference * MovementInput.x;
         }
     }
 
@@ -96,24 +85,6 @@ public class GroundMovement : MonoBehaviour
 
 
     protected float currentTargetSpeed;
-
-    protected virtual void UpdateDesiredTargetSpeed()
-    {
-        if (MovementInput == Vector2.zero)
-            return;
-
-
-        Vector3 movDir = DesiredMovementDirection.normalized;
-        Vector3 cross = Vector3.Cross(movDir, transform.forward);
-        float inputAngle = Vector3.SignedAngle(movDir, transform.forward, cross);
-
-        currentTargetSpeed = 
-            _baseSpeed
-            * _directionSpeedFactor.Evaluate(inputAngle)
-            * (Run ? _runMultiplier : 1);
-
-    }
-
     public Vector3 Velocity
     {
         get { return _grounding.Rigidbody.velocity; }
@@ -124,7 +95,7 @@ public class GroundMovement : MonoBehaviour
         _dinamicDragFactorSource = new DragFactorSource() { Value = _dinamicDragFactor };
         _directionalDragFactorSource = new DragFactorSource();
         _grounding.AddDragFactor(_dinamicDragFactorSource);
-        _grounding.AddDragFactor(_directionalDragFactorSource);
+        //_grounding.AddDragFactor(_directionalDragFactorSource);
     }
 
 
@@ -164,8 +135,21 @@ public class GroundMovement : MonoBehaviour
             
 
         }
-        
     }
 
+    protected virtual void UpdateDesiredTargetSpeed()
+    {
+        if (MovementInput == Vector2.zero)
+            return;
+
+        Vector3 movDir = DesiredMovementDirection;
+        Vector3 cross = Vector3.Cross(movDir, _grounding.Rigidbody.transform.forward);
+        float inputAngle = Vector3.SignedAngle(movDir, _grounding.Rigidbody.transform.forward, cross);
+        currentTargetSpeed = 
+            _baseSpeed
+            * _directionSpeedFactor.Evaluate(inputAngle)
+            * (Run ? _runMultiplier : 1);
+
+    }
 
 }

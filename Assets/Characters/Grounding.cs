@@ -21,7 +21,8 @@ public class Grounding : MonoBehaviour
     [SerializeField] private float _contactDistance = 0.5f;
     [SerializeField] private float _airDrag = 0.1f;
     [SerializeField] private float _staticDrag = 10;
-    
+    [SerializeField] private Vector3 _relativeDirectionalDrag = new Vector3(0,0,0);
+
 
 
     public Rigidbody Rigidbody { get { return _rigidbody; }}
@@ -99,6 +100,13 @@ public class Grounding : MonoBehaviour
             ContactNormal = Vector3.up;
             _rigidbody.drag = _airDrag * ExternalSourcesDragFactor;
         }
+
+        //Apply directional drag
+        _rigidbody.velocity = new Vector3(
+            _rigidbody.velocity.x * Mathf.Clamp01(1f - _relativeDirectionalDrag.x * Time.fixedDeltaTime),
+            _rigidbody.velocity.y * Mathf.Clamp01(1f - _relativeDirectionalDrag.y * Time.fixedDeltaTime),
+            _rigidbody.velocity.z * Mathf.Clamp01(1f - _relativeDirectionalDrag.z * Time.fixedDeltaTime)
+            );
     }
 
     //Use it to ignore grounding for 'duration' in seconds
@@ -107,7 +115,4 @@ public class Grounding : MonoBehaviour
         _floatingEndTime = Time.time + duration;
     }
 
-
-
-    //TODO: Add sideways movement friction
 }
