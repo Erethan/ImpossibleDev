@@ -102,11 +102,13 @@ public class Grounding : MonoBehaviour
         }
 
         //Apply directional drag
-        _rigidbody.velocity = new Vector3(
-            _rigidbody.velocity.x * Mathf.Clamp01(1f - _relativeDirectionalDrag.x * Time.fixedDeltaTime),
-            _rigidbody.velocity.y * Mathf.Clamp01(1f - _relativeDirectionalDrag.y * Time.fixedDeltaTime),
-            _rigidbody.velocity.z * Mathf.Clamp01(1f - _relativeDirectionalDrag.z * Time.fixedDeltaTime)
+        Vector3 localVelocity = transform.InverseTransformVector(_rigidbody.velocity);
+        localVelocity = new Vector3(
+            localVelocity.x * Mathf.Clamp01(1f - _relativeDirectionalDrag.x * Time.fixedDeltaTime),
+            localVelocity.y * Mathf.Clamp01(1f - _relativeDirectionalDrag.y * Time.fixedDeltaTime),
+            localVelocity.z * Mathf.Clamp01(1f - _relativeDirectionalDrag.z * Time.fixedDeltaTime)
             );
+        _rigidbody.velocity = transform.TransformVector(localVelocity);
     }
 
     //Use it to ignore grounding for 'duration' in seconds
