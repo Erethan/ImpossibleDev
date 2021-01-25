@@ -73,10 +73,30 @@ public class DeviceDisplayConfigurator : ScriptableObject
         
     }
 
+
     public Sprite GetDeviceBindingIcon(PlayerInput playerInput, string playerInputDeviceInputBinding)
     {
 
         string currentDeviceRawPath = playerInput.devices[0].ToString();
+
+        Sprite displaySpriteIcon = null;
+
+        for (int i = 0; i < listDeviceSets.Count; i++)
+        {
+            if (listDeviceSets[i].deviceRawPath == currentDeviceRawPath)
+            {
+                if (listDeviceSets[i].deviceDisplaySettings.deviceHasContextIcons)
+                {
+                    displaySpriteIcon = FilterForDeviceInputBinding(listDeviceSets[i], playerInputDeviceInputBinding);
+                }
+            }
+        }
+
+        return displaySpriteIcon;
+    }
+
+    public Sprite GetDeviceBindingIcon(string currentDeviceRawPath, string playerInputDeviceInputBinding)
+    {
 
         Sprite displaySpriteIcon = null;
 

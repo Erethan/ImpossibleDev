@@ -7,21 +7,28 @@ using UnityEngine.InputSystem;
 
 public class Rebind : MonoBehaviour
 {
+    
     [SerializeField] private InputActionAsset inputAsset;
+    [SerializeField] private DeviceDisplayConfigurator _deviceDisplayConfigurator;
     [SerializeField] private string actionMapName;
     [SerializeField] private string actionName;
 
     [Header("Binding Events")]
+    [SerializeField] private UnityEvent<Sprite> _spriteUpdate;
+    [SerializeField] private UnityEvent<string> _keyNameUpdate;
     [SerializeField] private UnityEvent _operationStart;
     [SerializeField] private UnityEvent _operationCancel;
     [SerializeField] private UnityEvent _operationEnd;
 
 
+    private InputAction bindingAction;
     private InputActionRebindingExtensions.RebindingOperation rebindOperation;
+
 
     public void PerformInteractiveRebinding()
     {
-        inputAsset.FindActionMap(actionMapName).FindAction(actionName).Disable();
+        bindingAction = inputAsset.FindActionMap(actionMapName).FindAction(actionName);
+        bindingAction.Disable();
         rebindOperation = 
             inputAsset.FindActionMap(actionMapName).FindAction(actionName).PerformInteractiveRebinding()
             .WithControlsExcluding("<Mouse>/position")
@@ -29,10 +36,9 @@ public class Rebind : MonoBehaviour
             .WithControlsExcluding("<Gamepad>/Start")
             .WithControlsExcluding("<Keyboard>/escape")
             .OnMatchWaitForAnother(0.1f)
-            .OnComplete(operation => RebindCompleted(operation));
+            .OnComplete(operation => RebindCompleted(operation))
+            .Start();
         _operationStart.Invoke();
-
-        rebindOperation.Start();
 
     }
 
@@ -46,7 +52,24 @@ public class Rebind : MonoBehaviour
         _operationEnd.Invoke();
 
         operation.Dispose();
-        inputAsset.FindActionMap(actionMapName).FindAction(actionName).Enable();
+        bindingAction .Enable();
+
+
+        int controlBindingIndex = bindingAction.GetBindingIndexForControl(bindingAction.controls[0]);
+        string currentBindingInput = InputControlPath.ToHumanReadableString(bindingAction.bindings[controlBindingIndex].effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice);
+
+        Sprite icon = _deviceDisplayConfigurator.GetDeviceBindingIcon(
+            bindingAction.controls[0].device.ToString(),
+            currentBindingInput);
+
+        if(icon != null)
+        {
+            _spriteUpdate.Invoke(icon);
+        }
+        else
+        {
+            _keyNameUpdate.Invoke(currentBindingInput);
+        }
 
     }
 

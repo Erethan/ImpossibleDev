@@ -84,6 +84,9 @@ public class Avatar : Character
 
     public void OnAttackInput(InputAction.CallbackContext context)
     {
+        if (!context.performed)
+            return;
+        Debug.Log("OnAttackInput");
         if (!staggered && _movement.enabled)
         {
             animator.SetInteger(CharacterAnimationConventions.ActionsParameterName, 1);
