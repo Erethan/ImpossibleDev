@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class Rebind : MonoBehaviour
 {
-    [SerializeField] private InputActionAsset inputAction;
+    [SerializeField] private InputActionAsset inputAsset;
     [SerializeField] private string actionMapName;
     [SerializeField] private string actionName;
 
@@ -16,9 +16,14 @@ public class Rebind : MonoBehaviour
     [SerializeField] private UnityEvent _operationCancel;
     [SerializeField] private UnityEvent _operationEnd;
 
+
+    private InputActionRebindingExtensions.RebindingOperation rebindOperation;
+
     public void PerformInteractiveRebinding()
     {
-        inputAction.FindActionMap(actionMapName).FindAction(actionName).PerformInteractiveRebinding()
+        inputAsset.FindActionMap(actionMapName).FindAction(actionName).Disable();
+        rebindOperation = 
+            inputAsset.FindActionMap(actionMapName).FindAction(actionName).PerformInteractiveRebinding()
             .WithControlsExcluding("<Mouse>/position")
             .WithControlsExcluding("<Mouse>/delta")
             .WithControlsExcluding("<Gamepad>/Start")
@@ -26,6 +31,9 @@ public class Rebind : MonoBehaviour
             .OnMatchWaitForAnother(0.1f)
             .OnComplete(operation => RebindCompleted(operation));
         _operationStart.Invoke();
+
+        rebindOperation.Start();
+
     }
 
     private void RebindCompleted(InputActionRebindingExtensions.RebindingOperation operation)
@@ -38,8 +46,9 @@ public class Rebind : MonoBehaviour
         _operationEnd.Invoke();
 
         operation.Dispose();
+        inputAsset.FindActionMap(actionMapName).FindAction(actionName).Enable();
 
     }
 
-   
+
 }
