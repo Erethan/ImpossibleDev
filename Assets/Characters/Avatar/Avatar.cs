@@ -9,7 +9,8 @@ public class Avatar : Character
     [SerializeField] protected Rigidbody _avatarRigidbody = default;
     [SerializeField] protected GroundMovement _movement = default;
     [SerializeField] protected GroundRotation _rotator = default;
-    [SerializeField] protected Animator animator = default;
+    [SerializeField] protected Animator _animator = default;
+    [SerializeField] protected float _animationLerpSpeed = 1;
 
     [Header("Actions")]
     [SerializeField] private Hitbox _swordHitbox = default;
@@ -29,7 +30,7 @@ public class Avatar : Character
     {
         if (!staggered && value)
         {
-            animator.SetInteger(CharacterAnimationConventions.HitTypeParameterName, 1);
+            _animator.SetInteger(CharacterAnimationConventions.HitTypeParameterName, 1);
         }
 
         staggered = value;
@@ -43,10 +44,22 @@ public class Avatar : Character
         Vector3 fowardVelocity = Vector3.Project(_avatarRigidbody.velocity, transform.forward);
         Vector3 rightVelocity = Vector3.Project(_avatarRigidbody.velocity, transform.right);
         int fowardSpeedSign = Vector3.Angle(fowardVelocity, transform.forward) < 90 ? 1 : -1;
-        int rightSpeedSign = Vector3.Angle(rightVelocity, transform.forward) < 90 ? 1 : -1;
+        int rightSpeedSign = Vector3.Angle(rightVelocity, transform.right) < 90 ? 1 : -1;
 
-        animator.SetFloat(CharacterAnimationConventions.ForwardSpeedParameterName, fowardVelocity.magnitude * fowardSpeedSign);
-        animator.SetFloat(CharacterAnimationConventions.StrafeSpeedParameterName, rightVelocity.magnitude * rightSpeedSign);
+
+        float previousForwardSpeed = _animator.GetFloat(CharacterAnimationConventions.ForwardSpeedParameterName);
+        float previousStrafeSpeed = _animator.GetFloat(CharacterAnimationConventions.StrafeSpeedParameterName);
+        float lerpValue = Mathf.Clamp01(_animationLerpSpeed * Time.deltaTime);
+        
+        _animator.SetFloat(CharacterAnimationConventions.ForwardSpeedParameterName,
+            Mathf.Lerp(previousForwardSpeed,
+            fowardVelocity.magnitude * fowardSpeedSign,
+            lerpValue));
+
+        _animator.SetFloat(CharacterAnimationConventions.StrafeSpeedParameterName,
+            Mathf.Lerp(previousStrafeSpeed,
+            rightVelocity.magnitude * rightSpeedSign,
+            lerpValue));
 
       
     }
@@ -86,10 +99,10 @@ public class Avatar : Character
     {
         if (!context.performed)
             return;
-        Debug.Log("OnAttackInput");
+        
         if (!staggered && _movement.enabled)
         {
-            animator.SetInteger(CharacterAnimationConventions.ActionsParameterName, 1);
+            _animator.SetInteger(CharacterAnimationConventions.ActionsParameterName, 1);
         }
     }
 

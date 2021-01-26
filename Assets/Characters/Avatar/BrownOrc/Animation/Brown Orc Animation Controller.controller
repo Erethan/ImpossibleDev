@@ -10,43 +10,27 @@ BlendTree:
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 2eb614681e9782642a88b7010946f91d, type: 2}
-    m_Threshold: 6
-    m_Position: {x: 6, y: 0}
+    m_Threshold: 2
+    m_Position: {x: 2, y: 0}
     m_TimeScale: 2.5
     m_CycleOffset: 0
     m_DirectBlendParameter: FowardVelocity
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: ab0d0c691cfd1a2438bb717accc04417, type: 2}
-    m_Threshold: 8.5
-    m_Position: {x: 8, y: 0}
+    m_Threshold: 5
+    m_Position: {x: 5.25, y: 0}
     m_TimeScale: 4
-    m_CycleOffset: 0
-    m_DirectBlendParameter: FowardVelocity
-    m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 1b70a8e2165dfa341b3f6c3801c572ee, type: 2}
-    m_Threshold: 11
-    m_Position: {x: 0, y: -5}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: FowardVelocity
-    m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: a4b90e050f162be47ade837a7437ce11, type: 2}
-    m_Threshold: 13.5
-    m_Position: {x: 0, y: 5}
-    m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: FowardVelocity
     m_Mirror: 0
   m_BlendParameter: FowardSpeed
   m_BlendParameterY: StrafeSpeed
-  m_MinThreshold: 6
-  m_MaxThreshold: 13.5
+  m_MinThreshold: 2
+  m_MaxThreshold: 5
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
-  m_BlendType: 2
+  m_BlendType: 0
 --- !u!1109 &-8385706347894915716
 AnimatorTransition:
   m_ObjectHideFlags: 1
@@ -340,42 +324,58 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 039a15ec7881f694985e2c5a4a58281c, type: 2}
     m_Threshold: -1.5
-    m_Position: {x: 0, y: 0}
+    m_Position: {x: -2, y: 0}
     m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: FowardVelocity
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 641725d1f114c1a4e8d175bc2884106f, type: 2}
-    m_Threshold: -1
-    m_Position: {x: 0, y: 0}
+    m_Threshold: -0.5
+    m_Position: {x: -0.5, y: 0}
     m_TimeScale: 0.2
     m_CycleOffset: 0
     m_DirectBlendParameter: FowardVelocity
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 641725d1f114c1a4e8d175bc2884106f, type: 2}
-    m_Threshold: 1
-    m_Position: {x: 0, y: 0}
+    m_Threshold: 0.5
+    m_Position: {x: 0.5, y: 0}
     m_TimeScale: 0.2
     m_CycleOffset: 0
     m_DirectBlendParameter: FowardVelocity
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: -9067100045494188822}
-    m_Threshold: 1.5
-    m_Position: {x: 0, y: 0}
+    m_Threshold: 1
+    m_Position: {x: 2, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: FowardVelocity
     m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 1b70a8e2165dfa341b3f6c3801c572ee, type: 2}
+    m_Threshold: 1.5
+    m_Position: {x: 0, y: -1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: FowardSpeed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: a4b90e050f162be47ade837a7437ce11, type: 2}
+    m_Threshold: 2
+    m_Position: {x: 0, y: 1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: FowardSpeed
+    m_Mirror: 0
   m_BlendParameter: FowardSpeed
-  m_BlendParameterY: FowardVelocity
+  m_BlendParameterY: StrafeSpeed
   m_MinThreshold: -1.5
-  m_MaxThreshold: 1.5
+  m_MaxThreshold: 2
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
-  m_BlendType: 0
+  m_BlendType: 3
 --- !u!1102 &1286848398903311655
 AnimatorState:
   serializedVersion: 6

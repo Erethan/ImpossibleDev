@@ -657,7 +657,7 @@ MonoBehaviour:
   _contactDistance: 0.5
   _airDrag: 0.1
   _staticDrag: 20
-  _relativeDirectionalDrag: {x: 8, y: 0, z: 0}
+  _relativeDirectionalDrag: {x: 0, y: 0, z: 0}
 --- !u!114 &2809078511332014387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,7 +672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grounding: {fileID: 7966680058413439169}
   _motorForce: 10000
-  _baseSpeed: 8
+  _baseSpeed: 5
   _runMultiplier: 1.5
   _directionSpeedFactor:
     serializedVersion: 2
@@ -749,7 +749,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _dinamicDragFactor: 0.25
+  _dinamicDragFactor: 0.2
   _directionalDrag:
     serializedVersion: 2
     m_Curve:
@@ -1361,7 +1361,8 @@ MonoBehaviour:
   _avatarRigidbody: {fileID: 5746212807573269123}
   _movement: {fileID: 2809078511332014387}
   _rotator: {fileID: 7882649299725601298}
-  animator: {fileID: 5746212807573269124}
+  _animator: {fileID: 5746212807573269124}
+  _animationLerpSpeed: 15
   _swordHitbox: {fileID: 0}
   _swordHitType: {fileID: 11400000, guid: 387d0eddcbc2918468a4e1c45b59325e, type: 2}
 --- !u!136 &5746212807573269122
