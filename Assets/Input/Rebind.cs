@@ -24,10 +24,18 @@ public class Rebind : MonoBehaviour
     private InputAction bindingAction;
     private InputActionRebindingExtensions.RebindingOperation rebindOperation;
 
+    private void OnEnable()
+    {
+        if(bindingAction == null)
+        {
+            bindingAction = inputAsset.FindActionMap(actionMapName).FindAction(actionName);
+        }
+
+        UpdateBindingView();
+    }
 
     public void PerformInteractiveRebinding()
     {
-        bindingAction = inputAsset.FindActionMap(actionMapName).FindAction(actionName);
         bindingAction.Disable();
         rebindOperation = 
             inputAsset.FindActionMap(actionMapName).FindAction(actionName).PerformInteractiveRebinding()
@@ -55,6 +63,11 @@ public class Rebind : MonoBehaviour
         bindingAction .Enable();
 
 
+        UpdateBindingView();
+    }
+
+    public void UpdateBindingView()
+    {
         int controlBindingIndex = bindingAction.GetBindingIndexForControl(bindingAction.controls[0]);
         string currentBindingInput = InputControlPath.ToHumanReadableString(bindingAction.bindings[controlBindingIndex].effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice);
 
@@ -62,7 +75,7 @@ public class Rebind : MonoBehaviour
             bindingAction.controls[0].device.ToString(),
             currentBindingInput);
 
-        if(icon != null)
+        if (icon != null)
         {
             _spriteUpdate.Invoke(icon);
         }
@@ -72,6 +85,5 @@ public class Rebind : MonoBehaviour
         }
 
     }
-
 
 }
