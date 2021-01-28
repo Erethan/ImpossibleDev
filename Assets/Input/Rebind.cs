@@ -10,6 +10,7 @@ public class Rebind : MonoBehaviour
     
     [SerializeField] private InputActionAsset inputAsset;
     [SerializeField] private DeviceDisplayConfigurator _deviceDisplayConfigurator;
+    [SerializeField] private PlayerInput _playerInput;
     [SerializeField] private string actionMapName;
     [SerializeField] private string actionName;
 
@@ -60,16 +61,25 @@ public class Rebind : MonoBehaviour
         _operationEnd.Invoke();
 
         operation.Dispose();
-        bindingAction .Enable();
 
 
         UpdateBindingView();
+        bindingAction.Enable();
     }
 
     public void UpdateBindingView()
     {
+        
+        if (bindingAction.controls.Count == 0)
+        {
+            
+
+
+            return;
+        }
         int controlBindingIndex = bindingAction.GetBindingIndexForControl(bindingAction.controls[0]);
         string currentBindingInput = InputControlPath.ToHumanReadableString(bindingAction.bindings[controlBindingIndex].effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice);
+        Debug.LogWarning(currentBindingInput + " - " + bindingAction.controls[0] + " - " + controlBindingIndex + " - " + _playerInput.currentControlScheme);
 
         Sprite icon = _deviceDisplayConfigurator.GetDeviceBindingIcon(
             bindingAction.controls[0].device.ToString(),

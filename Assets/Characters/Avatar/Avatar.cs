@@ -99,7 +99,7 @@ public class Avatar : Character
     {
         if (!context.performed)
             return;
-        
+        Debug.Log("OnAttackInput");
         if (!staggered && _movement.enabled)
         {
             _animator.SetInteger(CharacterAnimationConventions.ActionsParameterName, 1);
