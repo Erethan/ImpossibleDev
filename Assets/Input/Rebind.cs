@@ -8,11 +8,8 @@ using UnityEngine.InputSystem;
 public class Rebind : MonoBehaviour
 {
     
-    [SerializeField] private InputActionAsset inputAsset;
+    [SerializeField] private InputActionReference actionReference;
     [SerializeField] private DeviceDisplayConfigurator _deviceDisplayConfigurator;
-    [SerializeField] private PlayerInput _playerInput;
-    [SerializeField] private string actionMapName;
-    [SerializeField] private string actionName;
 
     [Header("Binding Events")]
     [SerializeField] private UnityEvent<Sprite> _spriteUpdate;
@@ -22,14 +19,14 @@ public class Rebind : MonoBehaviour
     [SerializeField] private UnityEvent _operationEnd;
 
 
-    private InputAction bindingAction;
-    private InputActionRebindingExtensions.RebindingOperation rebindOperation;
+    private InputAction _rebindingAction;
+    private InputActionRebindingExtensions.RebindingOperation _rebindOperation;
 
     private void OnEnable()
     {
-        if(bindingAction == null)
+        if(_rebindingAction == null)
         {
-            bindingAction = inputAsset.FindActionMap(actionMapName).FindAction(actionName);
+            _rebindingAction = actionReference.action;
         }
 
         UpdateBindingView();
@@ -37,9 +34,9 @@ public class Rebind : MonoBehaviour
 
     public void PerformInteractiveRebinding()
     {
-        bindingAction.Disable();
-        rebindOperation = 
-            inputAsset.FindActionMap(actionMapName).FindAction(actionName).PerformInteractiveRebinding()
+        _rebindingAction.Disable();
+        _rebindOperation =
+           _rebindingAction.PerformInteractiveRebinding(_rebindingAction.GetBindingIndexForControl(_rebindingAction.controls[0]))
             .WithControlsExcluding("<Mouse>/position")
             .WithControlsExcluding("<Mouse>/delta")
             .WithControlsExcluding("<Gamepad>/Start")
@@ -60,29 +57,31 @@ public class Rebind : MonoBehaviour
 
         _operationEnd.Invoke();
 
-        operation.Dispose();
-
 
         UpdateBindingView();
-        bindingAction.Enable();
+        operation.Dispose();
+        _rebindOperation = null;
+    }
+
+    public void UpdateBindingDevice( PlayerInput playerInput)
+    {
+        UpdateBindingView();
     }
 
     public void UpdateBindingView()
     {
-        
-        if (bindingAction.controls.Count == 0)
+        if (_rebindingAction.controls.Count == 0)
         {
-            
-
-
             return;
         }
-        int controlBindingIndex = bindingAction.GetBindingIndexForControl(bindingAction.controls[0]);
-        string currentBindingInput = InputControlPath.ToHumanReadableString(bindingAction.bindings[controlBindingIndex].effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice);
-        Debug.LogWarning(currentBindingInput + " - " + bindingAction.controls[0] + " - " + controlBindingIndex + " - " + _playerInput.currentControlScheme);
+
+
+        int controlBindingIndex = _rebindingAction.GetBindingIndexForControl(_rebindingAction.controls[0]);
+        string currentBindingInput = InputControlPath.ToHumanReadableString(_rebindingAction.bindings[controlBindingIndex].effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice);
+        
 
         Sprite icon = _deviceDisplayConfigurator.GetDeviceBindingIcon(
-            bindingAction.controls[0].device.ToString(),
+            _rebindingAction.controls[0].device.ToString(),
             currentBindingInput);
 
         if (icon != null)
@@ -95,5 +94,6 @@ public class Rebind : MonoBehaviour
         }
 
     }
-
+    
+    
 }

@@ -10692,8 +10692,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1825483232}
         m_TargetAssemblyTypeName: Rebind, Assembly-CSharp
-        m_MethodName: UpdateBindingView
-        m_Mode: 1
+        m_MethodName: UpdateBindingDevice
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -34338,9 +34338,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 397639142}
     m_Modifications:
     - target: {fileID: 753039403, guid: 277ded585de9d4e43ad3c9236954044d, type: 3}
+      propertyPath: inRef
+      value: 
+      objectReference: {fileID: -3023022117526402805, guid: 6a2a1a99424cb6c4faf56bb70aa64255, type: 3}
+    - target: {fileID: 753039403, guid: 277ded585de9d4e43ad3c9236954044d, type: 3}
       propertyPath: _playerInput
       value: 
       objectReference: {fileID: 771757346}
+    - target: {fileID: 753039403, guid: 277ded585de9d4e43ad3c9236954044d, type: 3}
+      propertyPath: actionReference
+      value: 
+      objectReference: {fileID: -3023022117526402805, guid: 6a2a1a99424cb6c4faf56bb70aa64255, type: 3}
     - target: {fileID: 5402151576950143471, guid: 277ded585de9d4e43ad3c9236954044d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
