@@ -10,6 +10,11 @@ using UnityEngine.SceneManagement;
 [CreateAssetMenu(fileName = "Scene Loading", menuName = "Pulse/Scene Management/Scene Loading System")]
 public class SceneLoadingSystem : ScriptableObject
 {
+
+
+    [SerializeField] private AssetReference _loadingScene;
+    [SerializeField] private AssetReference _transitionPrefab;
+
     private LoadControllerBehaviour _controllerBehaviour;
     private LoadControllerBehaviour ControllerBehaviour
     {
@@ -22,11 +27,10 @@ public class SceneLoadingSystem : ScriptableObject
             return _controllerBehaviour;
         }
     }
+
     public float Progress => ControllerBehaviour.Progress;
     public void LoadScene(AssetReference scene) => ControllerBehaviour.LoadScene(scene);
 
-
-    [SerializeField] private AssetReference _loadingScene;
     public AssetReference LoadingScene => _loadingScene;
 
 

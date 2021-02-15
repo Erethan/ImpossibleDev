@@ -14,16 +14,31 @@ public class LoadControllerBehaviour : MonoBehaviour
     private AssetReference _targetScene;
     private AsyncOperationHandle<SceneInstance> _targetSceneLoadOperation;
     public float Progress => _targetSceneLoadOperation.PercentComplete;
-    
 
-    public static LoadControllerBehaviour InstantiateNew( SceneLoadingSystem loadingSystem)
+    private GameObject _transitionGameObject;
+
+    public static LoadControllerBehaviour InstantiateNew(SceneLoadingSystem loadingSystem, AssetReference transitionPrefab = null)
     {
         LoadControllerBehaviour instance = new GameObject()
             .AddComponent<LoadControllerBehaviour>();
         instance.LoadingSystem = loadingSystem;
         DontDestroyOnLoad(instance.gameObject);
         instance.gameObject.name = $"{typeof(LoadControllerBehaviour)}";
+
+        if(transitionPrefab != null)
+        {
+            transitionPrefab.InstantiateAsync(instance.transform).Completed += instance.OnTransitionInstantiated; ;
+        }
+
         return instance;
+    }
+
+    private void OnTransitionInstantiated(AsyncOperationHandle<GameObject> obj)
+    {
+        if(obj.Status == AsyncOperationStatus.Succeeded)
+        {
+            _transitionGameObject = obj.Result;
+        }
     }
 
     public void LoadScene(AssetReference scene)
