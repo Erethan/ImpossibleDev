@@ -16,3 +16,7 @@ MonoBehaviour:
     m_AssetGUID: ee1a516951095c747ba3ebe2c6ebb277
     m_SubObjectName: 
     m_SubObjectType: 
+  _transitionPrefab:
+    m_AssetGUID: 1048ced05fb70c64eb5f4eb8a736ca5e
+    m_SubObjectName: 
+    m_SubObjectType: 

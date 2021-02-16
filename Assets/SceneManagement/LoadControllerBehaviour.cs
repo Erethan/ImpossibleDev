@@ -15,7 +15,7 @@ public class LoadControllerBehaviour : MonoBehaviour
     private AsyncOperationHandle<SceneInstance> _targetSceneLoadOperation;
     public float Progress => _targetSceneLoadOperation.PercentComplete;
 
-    private GameObject _transitionGameObject;
+    private IScreenTransition _screenTransition;
 
     public static LoadControllerBehaviour InstantiateNew(SceneLoadingSystem loadingSystem, AssetReference transitionPrefab = null)
     {
@@ -37,9 +37,11 @@ public class LoadControllerBehaviour : MonoBehaviour
     {
         if(obj.Status == AsyncOperationStatus.Succeeded)
         {
-            _transitionGameObject = obj.Result;
+            _screenTransition = obj.Result.GetComponent<IScreenTransition>();
+
         }
     }
+
 
     public void LoadScene(AssetReference scene)
     {
@@ -48,10 +50,24 @@ public class LoadControllerBehaviour : MonoBehaviour
             Debug.LogWarning($"Cannot load scene {scene.SubObjectName} while another is currently loading.");
             return;
         }
-
+        Loading = true;
         _targetScene = scene;
-        Addressables.LoadSceneAsync(LoadingSystem.LoadingScene, LoadSceneMode.Single)
+
+        if(_screenTransition != null)
+        {
+            _screenTransition.FadeInComplete += ScreenTransitionFadeInComplete;
+            _screenTransition.FadeIn();
+            return;
+        }
+
+        Addressables.LoadSceneAsync(LoadingSystem.LoadingScene, LoadSceneMode.Single, activateOnLoad: false)
             .Completed += OnLoadingScreenLoaded;
+    }
+
+    private void ScreenTransitionFadeInComplete()
+    {
+        _screenTransition.FadeInComplete -= ScreenTransitionFadeInComplete;
+
     }
 
     private void OnLoadingScreenLoaded(AsyncOperationHandle<SceneInstance> handle)
@@ -62,7 +78,11 @@ public class LoadControllerBehaviour : MonoBehaviour
             Loading = false;
             return;
         }
+        handle.Result.ActivateAsync().completed += OnLoadingScreenActive;
+    }
 
+    private void OnLoadingScreenActive(AsyncOperation obj)
+    {
         _targetSceneLoadOperation = Addressables.LoadSceneAsync(_targetScene, LoadSceneMode.Single);
         _targetSceneLoadOperation.Completed += OnTargetSceneLoad;
     }
