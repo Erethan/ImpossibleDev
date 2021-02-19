@@ -20,7 +20,7 @@ public class SceneLoadingSystem : ScriptableObject
         {
             if(_controllerBehaviour == null)
             {
-                return LoadControllerBehaviour.InstantiateNew(this, _transitionPrefab);
+                _controllerBehaviour = LoadControllerBehaviour.InstantiateNew(this, _transitionPrefab);
             }
             return _controllerBehaviour;
         }

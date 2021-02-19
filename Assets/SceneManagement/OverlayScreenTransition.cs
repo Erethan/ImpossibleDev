@@ -10,6 +10,9 @@ public class OverlayScreenTransition : MonoBehaviour, IScreenTransition
     [SerializeField] private float _duration = 1;
     [SerializeField] private AnimationCurve _interpolation = new AnimationCurve(new Keyframe[] { new Keyframe(0,0),new Keyframe(1,1)});
 
+    private bool faded = false;
+    public bool Faded => faded;
+
     public event Action FadeInComplete;
     public event Action FadeOutComplete;
 
@@ -29,13 +32,15 @@ public class OverlayScreenTransition : MonoBehaviour, IScreenTransition
     private IEnumerator FadeInRoutine()
     { 
         yield return AlphaChangeRoutine(0,_duration);
-        FadeInComplete.Invoke();
+        faded = false;
+        FadeInComplete?.Invoke();
     }
 
     private IEnumerator FadeOutRoutine()
     {
         yield return AlphaChangeRoutine(1, _duration);
-        FadeOutComplete.Invoke();
+        faded = true;
+        FadeOutComplete?.Invoke();
     }
 
     private IEnumerator AlphaChangeRoutine(float targetAlpha, float duration)
@@ -55,5 +60,8 @@ public class OverlayScreenTransition : MonoBehaviour, IScreenTransition
 
             yield return null;
         }
+        color.a = targetAlpha;
+        _image.color = color;
+
     }
 }

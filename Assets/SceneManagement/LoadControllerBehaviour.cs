@@ -11,9 +11,8 @@ public class LoadControllerBehaviour : MonoBehaviour
     public bool Loading { get; private set; }
     public SceneLoadingSystem LoadingSystem { get; private set; }
 
-    private AssetReference _targetScene;
-    private AsyncOperationHandle<SceneInstance> _targetSceneLoadOperation;
-    public float Progress => _targetSceneLoadOperation.PercentComplete;
+    private AsyncOperationHandle<SceneInstance> _loadOperation;
+    public float Progress => _loadOperation.PercentComplete;
 
     private IScreenTransition _screenTransition;
 
@@ -51,50 +50,43 @@ public class LoadControllerBehaviour : MonoBehaviour
             return;
         }
         Loading = true;
-        _targetScene = scene;
 
+        StartCoroutine(nameof(LoadRoutine), scene);
+    }
+
+
+    private IEnumerator LoadRoutine(AssetReference targetScene)
+    {
+        yield return SceneChange(LoadingSystem.LoadingScene);
+        yield return SceneChange(targetScene);
+        Loading = false;
+    }
+
+    private IEnumerator SceneChange(AssetReference scene)
+    {
         if(_screenTransition != null)
         {
-            _screenTransition.FadeInComplete += ScreenTransitionFadeInComplete;
+            _screenTransition.FadeOut();
+        }
+
+        _loadOperation = Addressables.LoadSceneAsync(scene, LoadSceneMode.Single, activateOnLoad: false);
+        
+        yield return _loadOperation;
+        if (_screenTransition != null)
+        {
+            yield return new WaitUntil(() => _screenTransition.Faded);
+        }
+
+        yield return _loadOperation.Result.ActivateAsync();
+        if (_screenTransition != null)
+        {
             _screenTransition.FadeIn();
-            return;
+            yield return new WaitUntil(() => !_screenTransition.Faded);
         }
 
-        Addressables.LoadSceneAsync(LoadingSystem.LoadingScene, LoadSceneMode.Single, activateOnLoad: false)
-            .Completed += OnLoadingScreenLoaded;
-    }
-
-    private void ScreenTransitionFadeInComplete()
-    {
-        _screenTransition.FadeInComplete -= ScreenTransitionFadeInComplete;
+        Addressables.Release(_loadOperation);
 
     }
 
-    private void OnLoadingScreenLoaded(AsyncOperationHandle<SceneInstance> handle)
-    {
-        if (handle.Status != AsyncOperationStatus.Succeeded)
-        {
-            Debug.LogError("Failed to load loading screen");
-            Loading = false;
-            return;
-        }
-        handle.Result.ActivateAsync().completed += OnLoadingScreenActive;
-    }
 
-    private void OnLoadingScreenActive(AsyncOperation obj)
-    {
-        _targetSceneLoadOperation = Addressables.LoadSceneAsync(_targetScene, LoadSceneMode.Single);
-        _targetSceneLoadOperation.Completed += OnTargetSceneLoad;
-    }
-
-    private void OnTargetSceneLoad(AsyncOperationHandle<SceneInstance> handle)
-    {
-        Loading = false;
-        if (handle.Status != AsyncOperationStatus.Succeeded)
-        {
-            Debug.LogWarning($"Failed to load scene {_targetScene.SubObjectName}");
-            return;
-        }
-
-    }
 }
