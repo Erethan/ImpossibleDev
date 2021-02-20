@@ -65,6 +65,10 @@ public class LoadControllerBehaviour : MonoBehaviour
 
     private IEnumerator LoadRoutine(AssetReference targetScene)
     {
+        if(_screenTransition == null)
+        {
+
+        }
         yield return SceneChange(LoadingSystem.LoadingScene);
         yield return SceneChange(targetScene);
         Loading = false;
@@ -72,7 +76,9 @@ public class LoadControllerBehaviour : MonoBehaviour
 
     private IEnumerator SceneChange(AssetReference scene)
     {
-        if(_screenTransition != null)
+        bool transitionLoaded = _screenTransition != null;
+
+        if (transitionLoaded)
         {
             _screenTransition.FadeOut();
         }
@@ -80,13 +86,13 @@ public class LoadControllerBehaviour : MonoBehaviour
         _loadOperation = Addressables.LoadSceneAsync(scene, LoadSceneMode.Single, activateOnLoad: false);
         
         yield return _loadOperation;
-        if (_screenTransition != null)
+        if (transitionLoaded)
         {
             yield return new WaitUntil(() => _screenTransition.Faded);
         }
 
         yield return _loadOperation.Result.ActivateAsync();
-        if (_screenTransition != null)
+        if (transitionLoaded)
         {
             _screenTransition.FadeIn();
             yield return new WaitUntil(() => !_screenTransition.Faded);

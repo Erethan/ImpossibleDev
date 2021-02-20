@@ -6,17 +6,9 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 
 public class SceneLoadRequester : MonoBehaviour
 {
-    [SerializeField] private AssetReference _sceneToLoad;
     [SerializeField] private SceneLoadingSystem _loadSystem;
-    [SerializeField] private bool _prepareOnEnable;
+    [SerializeField] private AssetReference _sceneToLoad;
 
-    void OnEnable()
-    {
-        if(_prepareOnEnable)
-        {
-            _loadSystem.Initialize();
-        }
-    }
 
     public void Request()
     {
