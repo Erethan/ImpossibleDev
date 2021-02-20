@@ -12,7 +12,15 @@ public class LoadControllerBehaviour : MonoBehaviour
     public SceneLoadingSystem LoadingSystem { get; private set; }
 
     private AsyncOperationHandle<SceneInstance> _loadOperation;
-    public float Progress => _loadOperation.PercentComplete;
+    public float Progress
+    {
+        get
+        {
+            if (!_loadOperation.IsValid())
+                return 1f;
+            return _loadOperation.PercentComplete;
+        }
+    }
 
     private IScreenTransition _screenTransition;
 
@@ -84,7 +92,6 @@ public class LoadControllerBehaviour : MonoBehaviour
             yield return new WaitUntil(() => !_screenTransition.Faded);
         }
 
-        Addressables.Release(_loadOperation);
 
     }
 

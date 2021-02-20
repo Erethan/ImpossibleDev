@@ -17,14 +17,14 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 52b4a6f5f58473648b9bbf63505ae9d0
   m_SerializeEntries:
-  - m_GUID: f1d25ddc84a924e42b3db4bb912cd471
-    m_Address: Assets/Scenes/SampleScene.unity
+  - m_GUID: ee1a516951095c747ba3ebe2c6ebb277
+    m_Address: Assets/Scenes/Loading.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: ee1a516951095c747ba3ebe2c6ebb277
-    m_Address: Assets/Scenes/Loading.unity
+  - m_GUID: f1d25ddc84a924e42b3db4bb912cd471
+    m_Address: Assets/Scenes/SampleScene.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
