@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 1768307791477152253}
-  _duration: 0.3
+  _duration: 0.7
   _interpolation:
     serializedVersion: 2
     m_Curve:

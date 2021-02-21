@@ -23,6 +23,7 @@ public class LoadControllerBehaviour : MonoBehaviour
     }
 
     private IScreenTransition _screenTransition;
+    private bool _hasTransition;
 
     public static LoadControllerBehaviour InstantiateNew(SceneLoadingSystem loadingSystem, AssetReference transitionPrefab = null)
     {
@@ -35,6 +36,7 @@ public class LoadControllerBehaviour : MonoBehaviour
         if(transitionPrefab != null)
         {
             transitionPrefab.InstantiateAsync(instance.transform).Completed += instance.OnTransitionInstantiated; ;
+            instance._hasTransition = true;
         }
 
         return instance;
@@ -65,9 +67,9 @@ public class LoadControllerBehaviour : MonoBehaviour
 
     private IEnumerator LoadRoutine(AssetReference targetScene)
     {
-        if(_screenTransition == null)
+        if (_hasTransition && _screenTransition == null)
         {
-
+            yield return new WaitUntil(() => _screenTransition != null);
         }
         yield return SceneChange(LoadingSystem.LoadingScene);
         yield return SceneChange(targetScene);
