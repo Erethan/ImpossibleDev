@@ -200,7 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadSystem: {fileID: 11400000, guid: 17d7b368590679645b56afd94f2df2e2, type: 2}
   _sceneToLoad:
-    m_AssetGUID: f1d25ddc84a924e42b3db4bb912cd471
+    m_AssetGUID: b43e56843cbf5ac4491e9cb3d8024ae3
     m_SubObjectName: 
     m_SubObjectType: 
 --- !u!4 &629619742
