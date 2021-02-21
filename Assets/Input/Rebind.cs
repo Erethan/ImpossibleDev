@@ -28,6 +28,7 @@ public class Rebind : MonoBehaviour
         {
             _rebindingAction = actionReference.action;
         }
+        
 
         UpdateBindingView();
     }
@@ -57,7 +58,7 @@ public class Rebind : MonoBehaviour
 
         _operationEnd.Invoke();
 
-
+        RebindPersistence.StoreControlOverrides(actionReference.asset);
         UpdateBindingView();
         operation.Dispose();
         _rebindOperation = null;
@@ -95,5 +96,5 @@ public class Rebind : MonoBehaviour
 
     }
     
-    
+   
 }
