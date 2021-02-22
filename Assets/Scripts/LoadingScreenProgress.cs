@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pulse;
+using Erethan.SceneLoadingSystem;
 
 public class LoadingScreenProgress : MonoBehaviour
 {
