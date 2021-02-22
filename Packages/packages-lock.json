@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.erethan.sceneloadingsystem": {
+      "version": "https://github.com/Erethan/SceneLoadingSystem.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.addressables": "1.16.16"
+      },
+      "hash": "9243868b5731ee1249df9421e0a4eb34008f2430"
+    },
     "com.unity.addressables": {
       "version": "1.16.16",
       "depth": 0,
