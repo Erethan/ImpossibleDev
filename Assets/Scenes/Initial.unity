@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab44b3c1d13032341a4bb55d2758090b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadSystem: {fileID: 11400000, guid: 17d7b368590679645b56afd94f2df2e2, type: 2}
+  _loadSystem: {fileID: 11400000, guid: 6d62dfcdc1115354d8b096f3bf0abbee, type: 2}
   _sceneToLoad:
     m_AssetGUID: b43e56843cbf5ac4491e9cb3d8024ae3
     m_SubObjectName: 

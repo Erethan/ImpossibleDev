@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Erethan.SceneLoadingSystem;
+
+using Erethan.ScreneTransition;
 
 public class LoadingScreenProgress : MonoBehaviour
 {
-    [SerializeField] private SceneLoadingSystem _loadingSystem;
+    [SerializeField] private SceneLoadService _loadingSystem;
     [SerializeField] private Transform _start;
     [SerializeField] private Transform _end;
 

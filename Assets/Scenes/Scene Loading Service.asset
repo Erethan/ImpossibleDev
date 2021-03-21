@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79c7c876e39c7a94a9fc30abc888b8f0, type: 3}
-  m_Name: Scene Loading
+  m_Script: {fileID: 11500000, guid: 74193f195d96838448f71be68fba5979, type: 3}
+  m_Name: Scene Loading Service
   m_EditorClassIdentifier: 
   _loadingScene:
     m_AssetGUID: ee1a516951095c747ba3ebe2c6ebb277
