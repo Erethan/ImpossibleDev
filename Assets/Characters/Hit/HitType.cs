@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Hit type", menuName = "Erethan/Characters/Hit Type")]
+[CreateAssetMenu(fileName = "Hit type", menuName = "Erethan/Character/Hit Type")]
 public class HitType : ScriptableObject
 {
    

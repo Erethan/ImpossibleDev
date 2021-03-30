@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new Hit Body Type", menuName = "Pulse/Helms Deep/Hit Body Type")]
+[CreateAssetMenu(fileName = "Hit Body Type", menuName = "Erethan/Character/Hit Body Type")]
 public class HitBodyType : ScriptableObject
 {
   

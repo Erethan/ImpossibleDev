@@ -1,54 +1,46 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Avatar : Character
+public class Avatar : Character2D
 {
-    [SerializeField] protected Rigidbody _avatarRigidbody = default;
-    [SerializeField] protected GroundMovement _movement = default;
-    [SerializeField] protected GroundRotation _rotator = default;
-    [SerializeField] protected float _animationLerpSpeed = 1;
+    [SerializeField] protected VelocityMovement _movement = default;
+    [SerializeField] protected AimDirection2D _aiming = default;
 
-    [Header("Actions")]
-    [SerializeField] private Hitbox2D _swordHitbox = default;
-    [SerializeField] private HitType _swordHitType = default;
-
-    protected bool staggered = false;
-
-    private void Start()
-    {
-        _swordHitbox.HitEvent += OnAttackHit;
-        _swordHitbox.enabled = false;
-    }
+    protected bool _staggered = false;
 
 
     protected virtual void Stagger(bool value)
     {
-        if (!staggered && value)
+        if (!_staggered && value)
         {
-            _animator.SetInteger(AnimationConventions.HitTypeKey, 1);
+            _animator.SetInteger(AnimationConventions.HitTypeKey, AnimationConventions.StaggerHitTypeValue);
         }
 
-        staggered = value;
-        _movement.enabled = !staggered;
+        _staggered = value;
+        _movement.enabled = !_staggered;
     }
 
 
-    private void OnAttackHit(IHittable hittable)
+    public override void ReceiveHit(Attack attack)
     {
-        Attack swordHit = new Attack
-        { 
-            Type = _swordHitType,
-            Damage = 1 
-        };
+        base.ReceiveHit(attack);
 
-        hittable.Hit(swordHit);
-    }
+        if (_staggered)
+            return;
 
-    public void ReceiveHit()
-    {
+        if (!IsAlive)
+            return;
+
         Stagger(true);
+
     }
 
+
+    protected override void Update()
+    {
+        base.Update();
+        _animator.SetFloat(AnimationConventions.AimDirectionKey, _aiming.AimAngle);
+    }
 
     #region Input Events
     public void OnMovementInput(InputAction.CallbackContext context)
@@ -58,14 +50,14 @@ public class Avatar : Character
 
     public void OnDirectionLookInput(InputAction.CallbackContext context)
     {
-        _rotator.Mode = GroundRotation.InputMode.Directional;
-        _rotator.RotationInput = context.ReadValue<Vector2>();
+        _aiming.Mode  = AimDirection2D.InputMode.Directional;
+        _aiming.RotationInput = context.ReadValue<Vector2>();
     }
 
     public void OnScreenLookInput(InputAction.CallbackContext context)
     {
-        _rotator.Mode = GroundRotation.InputMode.ScreenPosition;
-        _rotator.RotationInput = context.ReadValue<Vector2>();
+        _aiming.Mode  = AimDirection2D.InputMode.ScreenPosition;
+        _aiming.RotationInput = context.ReadValue<Vector2>();
 
     }
 
@@ -74,7 +66,7 @@ public class Avatar : Character
         if (!context.performed)
             return;
         Debug.Log("OnAttackInput");
-        if (!staggered && _movement.enabled)
+        if (!_staggered && _movement.enabled)
         {
             _animator.SetInteger(AnimationConventions.ActionTypeKey, 1);
         }
@@ -85,14 +77,9 @@ public class Avatar : Character
     #region Animation Events
     private void OnAttackStart()
     {
-        _swordHitbox.enabled = true;
+        //Create Slash attack?
     }
 
-    private void OnAttackEnd()
-    {
-
-        _swordHitbox.enabled = false;
-    }
 
     private void OnRecovered()
     {

@@ -17,7 +17,7 @@ public class GroundMovement : MonoBehaviour
     [Tooltip("Factor increase in the final velocity if Run is set to true.")]
     [SerializeField] protected float _runMultiplier = 1.5f;
 
-    [Tooltip("Factor applied on Base Speed to access maximum speed in each different input direction. This function domain is input angle and its image is the ratio of the force applied.")]
+    [Tooltip("Factor applied on Base Speed to evaluate maximum speed in each different input direction. This function domain is input angle and its image is the ratio of the force applied.")]
     [SerializeField]protected AnimationCurve _directionSpeedFactor = new AnimationCurve(
         new Keyframe(0, 1),
         new Keyframe(90, 0.7f),

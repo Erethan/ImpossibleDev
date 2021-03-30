@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Character : MonoBehaviour
+public class Character2D : MonoBehaviour
 {
     [SerializeField] protected CharacterStatistics _stats;
     [SerializeField] protected Animator _animator;
-    [SerializeField] protected Rigidbody _rigidbody;
+    [SerializeField] protected Rigidbody2D _rigidbody;
 
     [SerializeField] protected UnityEvent<float> _healthUpdate;
     [SerializeField] protected UnityEvent<float> _manaUpdate;
@@ -90,13 +90,13 @@ public class Character : MonoBehaviour
     protected virtual void UpdateAnimationParameters()
     {
         _animator.SetFloat(AnimationConventions.SpeedKey, _rigidbody.velocity.magnitude);
-        _animator.SetFloat(AnimationConventions.DirectionKey, transform.eulerAngles.z);
     }
 
-    public virtual void GetHit(Attack attack)
+    public virtual void ReceiveHit(Attack attack)
     {
         if (!IsAlive)
             return;
+
         CurrentHealth -= attack.Damage;
         
         if(CurrentHealth <= 0)
@@ -106,7 +106,7 @@ public class Character : MonoBehaviour
     }
 
 
-    public virtual void Die()
+    protected virtual void Die()
     {
         _isAlive = false;
         _animator.SetInteger(AnimationConventions.HitTypeKey, AnimationConventions.DeathHitTypeValue);

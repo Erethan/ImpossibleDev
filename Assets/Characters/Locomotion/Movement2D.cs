@@ -17,7 +17,8 @@ public class Movement2D : MonoBehaviour
     [Tooltip("Factor increase in the final velocity if Run is set to true.")]
     [SerializeField] protected float _runMultiplier = 1.5f;
 
-    [Tooltip("Factor applied on Base Speed to access maximum speed in each different input direction. This function domain is input angle and its image is the ratio of the force applied.")]
+    [Tooltip("Factor applied on Base Speed to evaluate maximum speed in each different input direction. This f" +
+        "unction domain is input angle and its image is the ratio of the force applied.")]
     [SerializeField]
     protected AnimationCurve _directionSpeedFactor = new AnimationCurve(
         new Keyframe(0, 1),
@@ -25,6 +26,8 @@ public class Movement2D : MonoBehaviour
         new Keyframe(180, 0.5f));
 
     [Header("Drag")]
+    [SerializeField] private float _staticDrag = 10;
+
     [Tooltip("The ratio of the drag when its rigidbody is moving")]
     [Range(0, 1)] [SerializeField] private float _dinamicDragFactor = 0.25f;
 
@@ -115,6 +118,7 @@ public class Movement2D : MonoBehaviour
 
 
         }
+        _rigidbody.drag = _staticDrag * ExternalSourcesDragFactor;
     }
 
     protected virtual void UpdateDesiredTargetSpeed()
