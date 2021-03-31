@@ -227,6 +227,32 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7320649261673988251, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
   m_PrefabInstance: {fileID: 3995490769044201107}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &761631640 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5427608740679048921, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+  m_PrefabInstance: {fileID: 3995490769044201107}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &761631641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761631640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad30f005f9afb404a9a27e9576fee59b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attack1Prefab: {fileID: 2895870153404707546, guid: c6720ced8f566964db7a9b96f0338b7b, type: 3}
+  _attack2Prefab: {fileID: 2895870153404707546, guid: c6720ced8f566964db7a9b96f0338b7b, type: 3}
+  _attack3Prefab: {fileID: 6129887181270310439, guid: 631c376968708aa4091de6a6c3e9286e, type: 3}
+  _weaponTransform: {fileID: 813109054}
+--- !u!4 &813109054 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3555194094390171398, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+  m_PrefabInstance: {fileID: 3995490769044201107}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &978829961
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,174 +485,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!90 &1639299685
-Avatar:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Automatic Avatar
-  m_AvatarSize: 1048
-  m_Avatar:
-    serializedVersion: 3
-    m_AvatarSkeleton:
-      data:
-        m_Node:
-        - m_ParentId: -1
-          m_AxesId: -1
-        - m_ParentId: 0
-          m_AxesId: -1
-        - m_ParentId: 1
-          m_AxesId: -1
-        - m_ParentId: 1
-          m_AxesId: -1
-        - m_ParentId: 0
-          m_AxesId: -1
-        - m_ParentId: 4
-          m_AxesId: -1
-        m_ID: 00000000193857588cfe939c3d888192fc1cefa73cb0554f
-        m_AxesArray: []
-    m_AvatarSkeletonPose:
-      data:
-        m_X:
-        - t: {x: 0, y: 0, z: 0}
-          q: {x: 0, y: 0, z: 0, w: 1}
-          s: {x: 1, y: 1, z: 1}
-        - t: {x: 0, y: 0, z: 0}
-          q: {x: 0, y: 0, z: 0, w: 1}
-          s: {x: 1, y: 1, z: 1}
-        - t: {x: 0, y: 0, z: 0}
-          q: {x: -0, y: -0, z: -0, w: 1}
-          s: {x: 1, y: 0.8, z: 1}
-        - t: {x: -0.51, y: -0.157, z: 0}
-          q: {x: -0, y: -0, z: -0.16039813, w: -0.9870524}
-          s: {x: 1, y: 1, z: 1}
-        - t: {x: 0, y: 0, z: 0}
-          q: {x: 0, y: 0, z: 0, w: 1}
-          s: {x: 1, y: 1, z: 1}
-        - t: {x: 0, y: 1.161, z: 0}
-          q: {x: 0, y: 0, z: 0, w: 1}
-          s: {x: 0.1, y: 1, z: 1}
-    m_DefaultPose:
-      data:
-        m_X:
-        - t: {x: 0, y: 0, z: 0}
-          q: {x: 0, y: 0, z: 0, w: 1}
-          s: {x: 1, y: 1, z: 1}
-        - t: {x: 0, y: 0, z: 0}
-          q: {x: 0, y: 0, z: 0, w: 1}
-          s: {x: 1, y: 1, z: 1}
-        - t: {x: 0, y: 0, z: 0}
-          q: {x: -0, y: -0, z: -0, w: 1}
-          s: {x: 1, y: 0.8, z: 1}
-        - t: {x: -0.51, y: -0.157, z: 0}
-          q: {x: -0, y: -0, z: -0.16039813, w: -0.9870524}
-          s: {x: 1, y: 1, z: 1}
-        - t: {x: 0, y: 0, z: 0}
-          q: {x: 0, y: 0, z: 0, w: 1}
-          s: {x: 1, y: 1, z: 1}
-        - t: {x: 0, y: 1.161, z: 0}
-          q: {x: 0, y: 0, z: 0, w: 1}
-          s: {x: 0.1, y: 1, z: 1}
-    m_SkeletonNameIDArray: 00000000193857588ca49a7bded73f19fc1cefa70be8245b
-    m_Human:
-      data:
-        serializedVersion: 2
-        m_RootX:
-          t: {x: 0, y: 0, z: 0}
-          q: {x: 0, y: 0, z: 0, w: 1}
-          s: {x: 1, y: 1, z: 1}
-        m_Skeleton:
-          data:
-            m_Node: []
-            m_ID: 
-            m_AxesArray: []
-        m_SkeletonPose:
-          data:
-            m_X: []
-        m_LeftHand:
-          data:
-            m_HandBoneIndex: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-        m_RightHand:
-          data:
-            m_HandBoneIndex: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-        m_HumanBoneIndex: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-        m_HumanBoneMass:
-        - 0.14545456
-        - 0.12121213
-        - 0.12121213
-        - 0.048484854
-        - 0.048484854
-        - 0.009696971
-        - 0.009696971
-        - 0.030303033
-        - 0.14545456
-        - 0.14545456
-        - 0.012121214
-        - 0.048484854
-        - 0.006060607
-        - 0.006060607
-        - 0.024242427
-        - 0.024242427
-        - 0.01818182
-        - 0.01818182
-        - 0.006060607
-        - 0.006060607
-        - 0.0024242427
-        - 0.0024242427
-        - 0
-        - 0
-        - 0
-        m_Scale: 1
-        m_ArmTwist: 0.5
-        m_ForeArmTwist: 0.5
-        m_UpperLegTwist: 0.5
-        m_LegTwist: 0.5
-        m_ArmStretch: 0.05
-        m_LegStretch: 0.05
-        m_FeetSpacing: 0
-        m_HasLeftHand: 0
-        m_HasRightHand: 0
-        m_HasTDoF: 0
-    m_HumanSkeletonIndexArray: 
-    m_HumanSkeletonReverseIndexArray: 
-    m_RootMotionBoneIndex: -1
-    m_RootMotionBoneX:
-      t: {x: 0, y: 0, z: 0}
-      q: {x: 0, y: 0, z: 0, w: 1}
-      s: {x: 1, y: 1, z: 1}
-    m_RootMotionSkeleton:
-      data:
-        m_Node: []
-        m_ID: 
-        m_AxesArray: []
-    m_RootMotionSkeletonPose:
-      data:
-        m_X: []
-    m_RootMotionSkeletonIndexArray: 
-  m_TOS:
-    1331015740: Hands/Sword
-    1482111001: GameObject
-    0: 
-    2626944652: GameObject/Body
-    2817465596: Hands
-    2457962557: GameObject/Shield
-  m_HumanDescription:
-    serializedVersion: 3
-    m_Human: []
-    m_Skeleton: []
-    m_ArmTwist: 0.5
-    m_ForeArmTwist: 0.5
-    m_UpperLegTwist: 0.5
-    m_LegTwist: 0.5
-    m_ArmStretch: 0.05
-    m_LegStretch: 0.05
-    m_FeetSpacing: 0
-    m_GlobalScale: 1
-    m_RootMotionBoneName: 
-    m_HasTranslationDoF: 0
-    m_HasExtraRoot: 0
-    m_SkeletonHasParents: 1
 --- !u!1 &1990295125
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,10 +690,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2780725856160955593, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
-      propertyPath: m_Avatar
-      value: 
-      objectReference: {fileID: 1639299685}
+    - target: {fileID: 3555194094390171398, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.309
+      objectReference: {fileID: 0}
+    - target: {fileID: 3555194094390171398, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.062
+      objectReference: {fileID: 0}
+    - target: {fileID: 3555194094390171398, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3555194094390171398, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3555194094390171398, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3555194094390171398, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3555194094390171398, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5427608740679048921, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
       propertyPath: m_Name
       value: Avatar
