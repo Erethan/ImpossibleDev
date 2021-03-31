@@ -8,6 +8,42 @@ public class Avatar : Character2D
 
     protected bool _staggered = false;
 
+    public enum State
+    {
+        Free,
+        Acting,
+        Recovering
+    }
+    public State CurrentState { get; private set; }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        var behaviours = _animator.GetBehaviours<StateChangeStateMachineBehaviour>();
+        foreach (var behaviour in behaviours)
+        {
+            behaviour.StateEnter += OnLocomotionStateEnter;
+        }
+    }
+
+    private void OnLocomotionStateEnter()
+    {
+        ChangeState(State.Free);
+    }
+
+    public override void Setup()
+    {
+        base.Setup();
+        CurrentState = State.Free;
+
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        _animator.SetFloat(AnimationConventions.AimDirectionKey, _aiming.AimAngle);
+    }
+
 
     protected virtual void Stagger(bool value)
     {
@@ -17,7 +53,7 @@ public class Avatar : Character2D
         }
 
         _staggered = value;
-        _movement.enabled = !_staggered;
+        ChangeState(State.Recovering);
     }
 
 
@@ -32,14 +68,12 @@ public class Avatar : Character2D
             return;
 
         Stagger(true);
-
     }
-
-
-    protected override void Update()
+    protected virtual void ChangeState(State newState)
     {
-        base.Update();
-        _animator.SetFloat(AnimationConventions.AimDirectionKey, _aiming.AimAngle);
+        _movement.Lock = newState != State.Free;
+        _aiming.Lock = newState != State.Free;
+
     }
 
     #region Input Events
@@ -58,26 +92,27 @@ public class Avatar : Character2D
     {
         _aiming.Mode  = AimDirection2D.InputMode.ScreenPosition;
         _aiming.RotationInput = context.ReadValue<Vector2>();
-
     }
 
     public void OnAttackInput(InputAction.CallbackContext context)
     {
         if (!context.performed)
             return;
-        Debug.Log("OnAttackInput");
-        if (!_staggered && _movement.enabled)
+
+        if (CurrentState == State.Free)
         {
             _animator.SetInteger(AnimationConventions.ActionTypeKey, 1);
+            ChangeState(State.Acting);
         }
     }
-
     #endregion
 
     #region Animation Events
     private void OnAttackStart()
     {
         //Create Slash attack?
+
+
     }
 
 
@@ -86,4 +121,5 @@ public class Avatar : Character2D
         Stagger(false);
     }
     #endregion
+
 }

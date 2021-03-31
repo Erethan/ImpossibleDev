@@ -10,6 +10,7 @@ public class AimDirection2D : MonoBehaviour
     
     public InputMode Mode { get; set; }
     public float AimAngle { get; private set; }
+    public bool Lock { get; set; }
 
     protected Vector2 _rotationInput = new Vector3();
     public Vector2 RotationInput
@@ -20,6 +21,13 @@ public class AimDirection2D : MonoBehaviour
         }
         set
         {
+            
+            if (Lock)
+            {
+                return;
+            }
+            _rotationInput = value;
+
             switch (Mode)
             {
                 case InputMode.Directional:
@@ -40,8 +48,8 @@ public class AimDirection2D : MonoBehaviour
                 _rotationInput.Normalize();
             }
 
-            _rotationInput = value;
         }
+
     }
 
 

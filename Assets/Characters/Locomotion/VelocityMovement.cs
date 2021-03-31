@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class VelocityMovement : MonoBehaviour
 {
-   
     [SerializeField] protected Rigidbody2D _rigidbody;
 
     [SerializeField] private float _baseSpeed = 1;
@@ -54,13 +53,9 @@ public class VelocityMovement : MonoBehaviour
         }
     }
 
-
     public bool Run { get; set; }
-
-    public Vector2 Velocity
-    {
-        get { return _rigidbody.velocity; }
-    }
+    public bool Lock { get; set; }
+    public Vector2 Velocity =>_rigidbody.velocity;
 
     protected void Awake()
     {
@@ -73,8 +68,9 @@ public class VelocityMovement : MonoBehaviour
     {
         _rigidbody.drag = _staticDrag * ExternalSourcesDragFactor;
 
-        if (Mathf.Abs(MovementInput.x) <= float.Epsilon
+        if ((Mathf.Abs(MovementInput.x) <= float.Epsilon
             && Mathf.Abs(MovementInput.y) <= float.Epsilon)
+            || Lock)
         {
             _dinamicDragFactorSource.Value = 1;
             return;
@@ -82,6 +78,6 @@ public class VelocityMovement : MonoBehaviour
 
         _rigidbody.velocity = MovementInput * _baseSpeed;
         _dinamicDragFactorSource.Value = _dinamicDragFactor;
-        
     }
+
 }

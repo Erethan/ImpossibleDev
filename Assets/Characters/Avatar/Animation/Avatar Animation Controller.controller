@@ -180,7 +180,7 @@ MonoBehaviour:
   parameterName: ActionType
   defaultValue: 0
   resetOnStateEnter: 1
-  resetOnStateExit: 0
+  resetOnStateExit: 1
 --- !u!1101 &-5970170831692584416
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -222,7 +222,7 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 40, y: 0, z: 0}
   m_EntryPosition: {x: 40, y: 100, z: 0}
-  m_ExitPosition: {x: 700, y: 100, z: 0}
+  m_ExitPosition: {x: 800, y: 80, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -3982744068704715369}
 --- !u!1107 &-5805393254169722848
@@ -595,37 +595,37 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Movement Direction
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Aim Direction
     m_Type: 1
     m_DefaultFloat: 1
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Defending
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ActionType
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: HitType
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1237,7 +1237,7 @@ BlendTree:
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: a055bc712d102e942ab9446d9bb9d7fa, type: 2}
-    m_Threshold: -90.001
+    m_Threshold: -90.00001
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1245,7 +1245,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: e084b8317dbc00642b3df18475c362a7, type: 2}
-    m_Threshold: -89.999
+    m_Threshold: -90
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1253,7 +1253,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: e084b8317dbc00642b3df18475c362a7, type: 2}
-    m_Threshold: 89.999
+    m_Threshold: 90
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1261,7 +1261,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: a055bc712d102e942ab9446d9bb9d7fa, type: 2}
-    m_Threshold: 90.001
+    m_Threshold: 90.00001
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1269,8 +1269,8 @@ BlendTree:
     m_Mirror: 0
   m_BlendParameter: Aim Direction
   m_BlendParameterY: Speed
-  m_MinThreshold: -90.001
-  m_MaxThreshold: 90.001
+  m_MinThreshold: -90.00001
+  m_MaxThreshold: 90.00001
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -1308,13 +1308,10 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 2783787516072198271}
     m_Position: {x: 280, y: 130, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 6645837651194160040}
-    m_Position: {x: 315, y: 195, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 6487070817036991871}
-    m_Position: {x: 550, y: 130, z: 0}
+    m_Position: {x: 580, y: 130, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: -1182782636745464422}
     m_Position: {x: 280, y: -20, z: 0}
@@ -1331,7 +1328,7 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: -10, z: 0}
   m_EntryPosition: {x: 40, y: 130, z: 0}
-  m_ExitPosition: {x: 800, y: 120, z: 0}
+  m_ExitPosition: {x: 820, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 2783787516072198271}
 --- !u!1101 &9154190975916787303

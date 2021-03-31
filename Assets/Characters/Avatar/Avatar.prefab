@@ -988,7 +988,19 @@ MonoBehaviour:
     m_ActionId: 8596b36e-8951-4af3-98c3-4a3abcd4ba86
     m_ActionName: Player/Direction Look
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3141504614092318818}
+        m_TargetAssemblyTypeName: Avatar, Assembly-CSharp
+        m_MethodName: OnAttackInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 9020e724-78f7-41ee-ac5e-ba07d3078816
     m_ActionName: Player/Attack[/Mouse/leftButton]
   - m_PersistentCalls:
