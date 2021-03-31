@@ -19,7 +19,7 @@ public class Avatar : Character2D
     protected override void Awake()
     {
         base.Awake();
-        var behaviours = _animator.GetBehaviours<StateChangeStateMachineBehaviour>();
+        var behaviours = _animator.GetBehaviours<LocomotionStateMachineBehaviour>();
         foreach (var behaviour in behaviours)
         {
             behaviour.StateEnter += OnLocomotionStateEnter;
@@ -73,7 +73,8 @@ public class Avatar : Character2D
     {
         _movement.Lock = newState != State.Free;
         _aiming.Lock = newState != State.Free;
-
+        
+        CurrentState = newState;
     }
 
     #region Input Events

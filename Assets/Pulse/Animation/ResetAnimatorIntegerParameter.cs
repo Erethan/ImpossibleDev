@@ -10,7 +10,7 @@ public class ResetAnimatorIntegerParameter : StateMachineBehaviour
     public bool resetOnStateEnter;
     public bool resetOnStateExit;
 
-    public override void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+    public override void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
     {
         if (resetOnStateEnter)
         {
@@ -19,7 +19,7 @@ public class ResetAnimatorIntegerParameter : StateMachineBehaviour
     }
 
 
-    public override void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+    public override void OnStateMachineExit(Animator animator, int layerIndex)
     {
         if (resetOnStateExit)
         {
