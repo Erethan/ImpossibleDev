@@ -16,8 +16,8 @@ MonoBehaviour:
   _actionName: Attack
   _parameterName: ActionType
   _value: 2
-  _normalizedStart: 0.6
-  _normalizedFinish: 0.9
+  _normalizedStart: 0.5
+  _normalizedFinish: 1
 --- !u!1101 &-9004569085174582955
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -543,7 +543,7 @@ MonoBehaviour:
   _parameterName: ActionType
   _value: 3
   _normalizedStart: 0.6
-  _normalizedFinish: 0.9
+  _normalizedFinish: 1
 --- !u!206 &-2733130449379788542
 BlendTree:
   m_ObjectHideFlags: 1
@@ -1338,7 +1338,7 @@ MonoBehaviour:
   _parameterName: ActionType
   _value: 4
   _normalizedStart: 0.6
-  _normalizedFinish: 0.9
+  _normalizedFinish: 1
 --- !u!1109 &8548274249011809328
 AnimatorTransition:
   m_ObjectHideFlags: 1

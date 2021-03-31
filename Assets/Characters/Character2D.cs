@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Character2D : MonoBehaviour
+public class Character2D : MonoBehaviour, IHittable
 {
     [SerializeField] protected CharacterStatistics _stats;
     [SerializeField] protected Animator _animator;
@@ -92,12 +92,12 @@ public class Character2D : MonoBehaviour
         _animator.SetFloat(AnimationConventions.SpeedKey, _rigidbody.velocity.magnitude);
     }
 
-    public virtual void ReceiveHit(Attack attack)
+    public virtual void Hit(Hit hit)
     {
         if (!IsAlive)
             return;
 
-        CurrentHealth -= attack.Damage;
+        CurrentHealth -= hit.Damage;
         
         if(CurrentHealth <= 0)
         {
@@ -105,6 +105,7 @@ public class Character2D : MonoBehaviour
         }
     }
 
+    
 
     protected virtual void Die()
     {

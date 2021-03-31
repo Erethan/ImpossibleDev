@@ -57,9 +57,9 @@ public class Avatar : Character2D
     }
 
 
-    public override void ReceiveHit(Attack attack)
+    public override void Hit(Hit attack)
     {
-        base.ReceiveHit(attack);
+        base.Hit(attack);
 
         if (_staggered)
             return;

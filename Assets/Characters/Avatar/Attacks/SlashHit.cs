@@ -23,7 +23,7 @@ public class SlashHit : MonoBehaviour
         Destroy(gameObject, _secondsToLive);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         IHittable hitObject = other.GetComponent<IHittable>();
 
