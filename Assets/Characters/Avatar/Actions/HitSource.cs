@@ -2,23 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlashHit : MonoBehaviour
+public class HitSource : MonoBehaviour
 {
     [SerializeField] private HitType _hitType;
 
-    [SerializeField] private float _secondsToLive;
     [SerializeField] private float _damage;
 
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        Destroy(gameObject, _secondsToLive);
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        IHittable hitObject = other.GetComponent<IHittable>();
+        IHittable hitObject = other.attachedRigidbody != null
+            ? other.attachedRigidbody.GetComponent<IHittable>()
+            : other.GetComponent<IHittable>();
 
         if (hitObject == null)
             return;

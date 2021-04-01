@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2895870153404707557}
-  - component: {fileID: 5873304083831487244}
   - component: {fileID: 1149911382714554661}
+  - component: {fileID: 5873304083831487244}
+  - component: {fileID: 1442633549553977947}
   m_Layer: 0
   m_Name: Sword Slash 1
   m_TagString: Untagged
@@ -33,21 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -27.2}
---- !u!114 &5873304083831487244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2895870153404707546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c449715ac773474db95d06ed814a21c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hitType: {fileID: 11400000, guid: c191360f5b6b1aa4890e3a1d0ce4c997, type: 2}
-  _secondsToLive: 5
-  _damage: 1
 --- !u!60 &1149911382714554661
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -92,6 +78,33 @@ PolygonCollider2D:
       - {x: -0.30571947, y: -0.65282106}
       - {x: -0.3077568, y: -0.5965939}
       - {x: -0.30723608, y: -0.60591996}
+--- !u!114 &5873304083831487244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2895870153404707546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c449715ac773474db95d06ed814a21c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitType: {fileID: 11400000, guid: c191360f5b6b1aa4890e3a1d0ce4c997, type: 2}
+  _damage: 1
+--- !u!114 &1442633549553977947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2895870153404707546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8340cc603bd3de44b099338e839d782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _secondsToLive: 1
 --- !u!1 &2895870154122471701
 GameObject:
   m_ObjectHideFlags: 0

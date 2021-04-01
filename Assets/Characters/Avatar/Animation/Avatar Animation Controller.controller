@@ -1035,7 +1035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parameterName: HitType
   defaultValue: 0
-  resetOnStateEnter: 0
+  resetOnStateEnter: 1
   resetOnStateExit: 1
 --- !u!1102 &2221616924368042732
 AnimatorState:

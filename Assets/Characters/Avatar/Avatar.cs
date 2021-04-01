@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Avatar : Character2D
+public class Avatar : Character2D, IHittable
 {
     [SerializeField] protected VelocityMovement _movement = default;
     [SerializeField] protected AimDirection2D _aiming = default;
@@ -73,12 +73,17 @@ public class Avatar : Character2D
 
     protected virtual void ChangeState(State newState)
     {
-        _movement.Lock = newState != State.Free;
-        _aiming.Lock = newState != State.Free;
+        bool isBecomingFree = newState != State.Free;
+        _movement.Lock = isBecomingFree;
+        _aiming.Lock = isBecomingFree;
+
+        if(isBecomingFree)
+        {
+            _staggered = false;
+        }
 
 
         CurrentState = newState;
-
         UpdateDefenseState();
     }
 
@@ -150,11 +155,6 @@ public class Avatar : Character2D
 
     }
 
-
-    private void OnRecovered()
-    {
-        Stagger(false);
-    }
     #endregion
 
 }
