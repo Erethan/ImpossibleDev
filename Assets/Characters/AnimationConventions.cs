@@ -11,4 +11,7 @@ public class AnimationConventions
     public const int DeathHitTypeValue = 2;
 
     public const string ActionTypeKey = "ActionType";
+
+    public const string DefenseKey = "Defending";
+
 }

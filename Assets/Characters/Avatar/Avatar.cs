@@ -73,9 +73,21 @@ public class Avatar : Character2D
     {
         _movement.Lock = newState != State.Free;
         _aiming.Lock = newState != State.Free;
-        
+
+        if(newState != State.Free)
+        {
+            SetDefenseState(false);
+        }
+
         CurrentState = newState;
     }
+
+
+    protected virtual void SetDefenseState(bool value)
+    {
+        _animator.SetBool(AnimationConventions.DefenseKey, value);
+    }
+
 
     #region Input Events
     public void OnMovementInput(InputAction.CallbackContext context)
@@ -116,6 +128,19 @@ public class Avatar : Character2D
         {
             _animator.SetInteger(AnimationConventions.ActionTypeKey, 2);
             ChangeState(State.Acting);
+        }
+    }
+
+
+    public void OnDefendInput(InputAction.CallbackContext context)
+    {
+        
+        if (CurrentState == State.Free)
+        {
+            bool defending =
+                context.phase == InputActionPhase.Started
+                || context.phase == InputActionPhase.Performed;
+            SetDefenseState(defending);
         }
     }
 
