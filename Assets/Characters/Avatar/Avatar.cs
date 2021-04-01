@@ -106,6 +106,19 @@ public class Avatar : Character2D
             ChangeState(State.Acting);
         }
     }
+
+    public void OnDashInput(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        if (CurrentState == State.Free)
+        {
+            _animator.SetInteger(AnimationConventions.ActionTypeKey, 2);
+            ChangeState(State.Acting);
+        }
+    }
+
     #endregion
 
     #region Animation Events
