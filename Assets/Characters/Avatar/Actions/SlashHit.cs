@@ -9,17 +9,10 @@ public class SlashHit : MonoBehaviour
     [SerializeField] private float _secondsToLive;
     [SerializeField] private float _damage;
 
-    private Hit _hit;
     
     // Start is called before the first frame update
     void Start()
     {
-        _hit = new Hit 
-        { 
-            Type = _hitType, 
-            Damage = _damage 
-        };
-
         Destroy(gameObject, _secondsToLive);
     }
 
@@ -30,7 +23,14 @@ public class SlashHit : MonoBehaviour
         if (hitObject == null)
             return;
 
-        hitObject.Hit(_hit);
+        Hit hit = new Hit
+        {
+            Type = _hitType,
+            Damage = _damage,
+            SourceGameObject = gameObject,
+            HitGameObject = other.gameObject
+        };
+        hitObject.Hit(hit);
     }
 
 

@@ -70,6 +70,7 @@ public class Avatar : Character2D
 
         Stagger(true);
     }
+
     protected virtual void ChangeState(State newState)
     {
         _movement.Lock = newState != State.Free;
