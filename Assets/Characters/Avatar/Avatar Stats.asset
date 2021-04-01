@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d3a0012d98f6947b2d88721aff115e, type: 3}
   m_Name: Avatar Stats
   m_EditorClassIdentifier: 
-  _health: 10
+  _health: 5
   _mana: 0
   _stamina: 0
