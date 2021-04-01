@@ -7,6 +7,7 @@ public class Avatar : Character2D
     [SerializeField] protected AimDirection2D _aiming = default;
 
     protected bool _staggered = false;
+    protected bool _defenseOrdered = false;
 
     public enum State
     {
@@ -74,18 +75,16 @@ public class Avatar : Character2D
         _movement.Lock = newState != State.Free;
         _aiming.Lock = newState != State.Free;
 
-        if(newState != State.Free)
-        {
-            SetDefenseState(false);
-        }
 
         CurrentState = newState;
+
+        UpdateDefenseState();
     }
 
 
-    protected virtual void SetDefenseState(bool value)
+    protected virtual void UpdateDefenseState()
     {
-        _animator.SetBool(AnimationConventions.DefenseKey, value);
+        _animator.SetBool(AnimationConventions.DefenseKey, _defenseOrdered && CurrentState == State.Free);
     }
 
 
@@ -134,14 +133,10 @@ public class Avatar : Character2D
 
     public void OnDefendInput(InputAction.CallbackContext context)
     {
-        
-        if (CurrentState == State.Free)
-        {
-            bool defending =
-                context.phase == InputActionPhase.Started
-                || context.phase == InputActionPhase.Performed;
-            SetDefenseState(defending);
-        }
+        _defenseOrdered =
+            context.phase == InputActionPhase.Started
+            || context.phase == InputActionPhase.Performed;
+        UpdateDefenseState();
     }
 
     #endregion
