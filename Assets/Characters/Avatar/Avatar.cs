@@ -70,6 +70,12 @@ public class Avatar : Character2D, IHittable
 
         Stagger(true);
     }
+    
+    protected override void Die()
+    {
+        base.Die();
+        ChangeState(State.Recovering);
+    }
 
     protected virtual void ChangeState(State newState)
     {
@@ -82,8 +88,8 @@ public class Avatar : Character2D, IHittable
             _staggered = false;
         }
 
-
         CurrentState = newState;
+        Debug.Log($"Avatar new state: {CurrentState}");
         UpdateDefenseState();
     }
 
