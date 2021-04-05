@@ -18,7 +18,7 @@ public class Character2D : MonoBehaviour, IHittable
         {
             return _currentHealth;
         }
-        private set
+        protected set
         {
             bool valueChanged = _currentHealth != value;
             _currentHealth = value;
@@ -36,13 +36,13 @@ public class Character2D : MonoBehaviour, IHittable
         {
             return _currentMana;
         }
-        private set
+        protected set
         {
             bool valueChanged = _currentMana != value;
             _currentMana = value;
             if (valueChanged)
             {
-                _healthUpdate.Invoke(_currentMana);
+                _manaUpdate.Invoke(_currentMana);
             }
         }
     }
@@ -54,13 +54,13 @@ public class Character2D : MonoBehaviour, IHittable
         {
             return _currentStamina;
         }
-        private set
+        protected set
         {
             bool valueChanged = _currentStamina != value;
             _currentStamina = value;
             if (valueChanged)
             {
-                _healthUpdate.Invoke(_currentStamina);
+                _staminaUpdate.Invoke(_currentStamina);
             }
         }
     }
@@ -97,12 +97,14 @@ public class Character2D : MonoBehaviour, IHittable
         if (!IsAlive)
             return;
 
-        CurrentHealth -= hit.Damage;
-        
-        if(CurrentHealth <= 0)
+        if(CurrentHealth <= hit.Damage)
         {
+            CurrentHealth = 0;
             Die();
+            return;
         }
+
+        CurrentHealth -= hit.Damage;
     }
 
     
