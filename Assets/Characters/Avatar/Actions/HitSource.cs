@@ -8,14 +8,23 @@ public class HitSource : MonoBehaviour
 
     [SerializeField] private float _damage;
 
+    List<IHittable> hitObjects = new List<IHittable>();
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        IHittable hitObject = other.attachedRigidbody != null
-            ? other.attachedRigidbody.GetComponent<IHittable>()
-            : other.GetComponent<IHittable>();
+        IHittable hitObject = other.GetComponent<IHittable>();
+        GameObject hitGameObject = other.gameObject;
+
+        if(hitObject == null && other.attachedRigidbody != null)
+        {
+            hitObject = other.attachedRigidbody.GetComponent<IHittable>();
+            hitGameObject = other.attachedRigidbody.gameObject;
+        }
 
         if (hitObject == null)
+            return;
+
+        if (hitObjects.Contains(hitObject))
             return;
 
         Hit hit = new Hit
@@ -23,8 +32,9 @@ public class HitSource : MonoBehaviour
             Type = _hitType,
             Damage = _damage,
             SourceGameObject = gameObject,
-            HitGameObject = other.gameObject
+            HitGameObject = hitGameObject
         };
+        hitObjects.Add(hitObject);
         hitObject.Hit(hit);
     }
 

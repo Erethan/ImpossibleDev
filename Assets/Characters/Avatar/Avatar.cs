@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +6,7 @@ public class Avatar : Character2D, IHittable
 {
     [SerializeField] protected VelocityMovement _movement = default;
     [SerializeField] protected AimDirection2D _aiming = default;
+    [SerializeField] protected AvatarBlocker blocker = default;
 
     protected bool _staggered = false;
     protected bool _defenseOrdered = false;
@@ -48,29 +50,55 @@ public class Avatar : Character2D, IHittable
 
     protected virtual void Stagger(bool value)
     {
-        if (!_staggered && value)
-        {
-            _animator.SetInteger(AnimationConventions.HitTypeKey, AnimationConventions.StaggerHitTypeValue);
-        }
+        if (_staggered && value)
+            return;
 
         _staggered = value;
-        ChangeState(State.Recovering);
+
+        if (_staggered)
+        {
+            _animator.SetInteger(AnimationConventions.HitTypeKey, AnimationConventions.StaggerHitTypeValue);
+            ChangeState(State.Recovering);
+        }
+
     }
 
 
     public override void Hit(Hit attack)
     {
-        base.Hit(attack);
+        bool attackBlocked = false;
+        if(blocker.IsBlocking)
+        {
+            attackBlocked = blocker.TryBlock(attack, _rigidbody.transform.position);
+        }
 
-        if (_staggered)
+        if(attackBlocked)
+        {
+            BlockAttack(attack);
             return;
+        }
+
+        base.Hit(attack);
 
         if (!IsAlive)
             return;
 
         Stagger(true);
     }
-    
+
+    protected virtual void BlockAttack(Hit hit)
+    {
+        ChangeState(State.Recovering);
+        if(CurrentStamina < hit.Damage)
+        {
+            _animator.SetInteger(AnimationConventions.HitTypeKey, AnimationConventions.GuardBreakTypeValue);
+            CurrentStamina = 0;
+            return;
+        }
+        CurrentStamina -= hit.Damage;
+        _animator.SetInteger(AnimationConventions.HitTypeKey, AnimationConventions.BlockTypeValue);
+    }
+
     protected override void Die()
     {
         base.Die();
@@ -96,7 +124,16 @@ public class Avatar : Character2D, IHittable
 
     protected virtual void UpdateDefenseState()
     {
-        _animator.SetBool(AnimationConventions.DefenseKey, _defenseOrdered && CurrentState == State.Free);
+        bool block = _defenseOrdered && CurrentState == State.Free;
+        _animator.SetBool(AnimationConventions.DefenseKey, block);
+
+        if(!block)
+        {
+            blocker.DeactivateBlocking();
+            return;
+        }
+
+        blocker.ActivateBlocking();
     }
 
 
