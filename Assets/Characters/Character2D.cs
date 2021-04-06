@@ -64,7 +64,8 @@ public class Character2D : MonoBehaviour, IHittable
             }
         }
     }
-    
+
+    public Animator Animator => _animator;
 
     protected bool _isAlive;
     public bool IsAlive => _isAlive;
@@ -113,6 +114,11 @@ public class Character2D : MonoBehaviour, IHittable
     {
         _isAlive = false;
         _animator.SetInteger(AnimationConventions.HitTypeKey, AnimationConventions.DeathHitTypeValue);
+    }
+
+    public virtual void SpendStamina(float value)
+    {
+        CurrentStamina = Mathf.Clamp(CurrentStamina - value, 0, _stats.Stamina);
     }
 
 }

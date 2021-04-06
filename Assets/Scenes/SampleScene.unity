@@ -449,9 +449,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 926277959, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
-      propertyPath: _blockArc
-      value: 30
+    - target: {fileID: 761631642, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _firstAttack.Prefab
+      value: 
+      objectReference: {fileID: 2895870153404707546, guid: c6720ced8f566964db7a9b96f0338b7b, type: 3}
+    - target: {fileID: 761631642, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _thirdAttack.Prefab
+      value: 
+      objectReference: {fileID: 2895870153404707546, guid: c6720ced8f566964db7a9b96f0338b7b, type: 3}
+    - target: {fileID: 761631642, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _secondAttack.Prefab
+      value: 
+      objectReference: {fileID: 2895870153404707546, guid: c6720ced8f566964db7a9b96f0338b7b, type: 3}
+    - target: {fileID: 761631642, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _firstAttack.BindingTag
+      value: Basic Attack 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 761631642, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _thirdAttack.BindingTag
+      value: Basic Attack 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 761631642, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _firstAttack.StaminaCost
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 761631642, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _secondAttack.BindingTag
+      value: Basic Attack 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 761631642, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _thirdAttack.StaminaCost
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 761631642, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _secondAttack.StaminaCost
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5427608740679048921, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
       propertyPath: m_Name

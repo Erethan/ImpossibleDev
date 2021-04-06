@@ -1275,6 +1275,7 @@ MonoBehaviour:
   _movement: {fileID: 1456890425893098281}
   _aiming: {fileID: 7688874968109479822}
   blocker: {fileID: 926277959}
+  _basicAttacks: {fileID: 761631642}
 --- !u!114 &761631642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1287,9 +1288,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad30f005f9afb404a9a27e9576fee59b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attack1Prefab: {fileID: 2895870153404707546, guid: c6720ced8f566964db7a9b96f0338b7b, type: 3}
-  _attack2Prefab: {fileID: 2895870153404707546, guid: c6720ced8f566964db7a9b96f0338b7b, type: 3}
-  _attack3Prefab: {fileID: 6129887181270310439, guid: 631c376968708aa4091de6a6c3e9286e, type: 3}
+  _character: {fileID: 3141504614092318818}
+  _firstAttack:
+    Prefab: {fileID: 2895870153404707546, guid: c6720ced8f566964db7a9b96f0338b7b, type: 3}
+    StaminaCost: 5
+    BindingTag: Basic Attack 1
+  _secondAttack:
+    Prefab: {fileID: 2895870153404707546, guid: c6720ced8f566964db7a9b96f0338b7b, type: 3}
+    StaminaCost: 5
+    BindingTag: Basic Attack 2
+  _thirdAttack:
+    Prefab: {fileID: 2895870153404707546, guid: c6720ced8f566964db7a9b96f0338b7b, type: 3}
+    StaminaCost: 10
+    BindingTag: Basic Attack 3
+  _attackAnimationParameter: ActionControl
   _weaponTransform: {fileID: 3555194094390171398}
 --- !u!114 &761631641
 MonoBehaviour:
@@ -1582,6 +1594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26672aedba35c8f4aa530d4bda90c5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _blockArc: 30
 --- !u!1 &8832708389570021139
 GameObject:
   m_ObjectHideFlags: 0

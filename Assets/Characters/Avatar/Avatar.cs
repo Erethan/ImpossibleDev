@@ -7,6 +7,7 @@ public class Avatar : Character2D, IHittable
     [SerializeField] protected VelocityMovement _movement = default;
     [SerializeField] protected AimDirection2D _aiming = default;
     [SerializeField] protected AvatarBlocker blocker = default;
+    [SerializeField] protected AvatarAttacks _basicAttacks = default;
 
     protected bool _staggered = false;
     protected bool _defenseOrdered = false;
@@ -136,7 +137,6 @@ public class Avatar : Character2D, IHittable
         blocker.ActivateBlocking();
     }
 
-
     #region Input Events
     public void OnMovementInput(InputAction.CallbackContext context)
     {
@@ -160,11 +160,15 @@ public class Avatar : Character2D, IHittable
         if (!context.performed)
             return;
 
-        if (CurrentState == State.Free)
-        {
-            _animator.SetInteger(AnimationConventions.ActionTypeKey, 1);
-            ChangeState(State.Acting);
-        }
+        if (CurrentState != State.Free)
+            return;
+        
+        if (CurrentStamina <= 0)
+            return;
+
+        _animator.SetInteger(AnimationConventions.ActionTypeKey, 1);
+        _basicAttacks.StartAttackChain();
+        ChangeState(State.Acting);
     }
 
     public void OnDashInput(InputAction.CallbackContext context)
