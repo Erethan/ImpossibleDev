@@ -118,12 +118,30 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -7963765143915261386}
   m_AnyStatePosition: {x: 90, y: 10, z: 0}
   m_EntryPosition: {x: 90, y: 110, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 588367820816363194}
+--- !u!114 &-7963765143915261386
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e06d6ea6b4326418efbe5f71fc685b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parameterName: ActionControl
+  _defaultValue: 0
+  _onSubStateOnly: 0
+  _resetOnStateEnter: 1
+  _resetOnStateExit: 0
 --- !u!1109 &-7810673761868087372
 AnimatorTransition:
   m_ObjectHideFlags: 1
@@ -766,7 +784,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: ActionControl
-    m_EventTreshold: 0
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6169677810182298858}
   m_Solo: 0
@@ -1888,7 +1906,7 @@ AnimatorStateMachine:
     second:
     - {fileID: 3227663044486838484}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: -10, z: 0}
+  m_AnyStatePosition: {x: 30, y: -10, z: 0}
   m_EntryPosition: {x: 30, y: 150, z: 0}
   m_ExitPosition: {x: 820, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}

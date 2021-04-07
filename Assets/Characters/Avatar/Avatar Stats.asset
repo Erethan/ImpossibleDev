@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: Avatar Stats
   m_EditorClassIdentifier: 
   _health: 100
+  _healthRegen: 1
+  _healthRegenDelay: 5
   _mana: 100
-  _stamina: 2
+  _manaRegen: 0
+  _manaRegenDelay: 0
+  _stamina: 100
+  _staminaRegen: 5
+  _staminaRegenDelay: 2
