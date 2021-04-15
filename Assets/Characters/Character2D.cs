@@ -32,7 +32,7 @@ public class Character2D : MonoBehaviour, IHittable
 
             if(valueChanged)
             {
-                _healthUpdate.Invoke(_currentHealth);
+                _healthUpdate.Invoke(_currentHealth/_stats.Health);
             }
         }
     }
@@ -56,7 +56,7 @@ public class Character2D : MonoBehaviour, IHittable
             _currentMana = targetValue;
             if (valueChanged)
             {
-                _manaUpdate.Invoke(_currentMana);
+                _manaUpdate.Invoke(_currentMana / _stats.Mana);
             }
         }
     }
@@ -80,7 +80,7 @@ public class Character2D : MonoBehaviour, IHittable
             _currentStamina = targetValue;
             if (valueChanged)
             {
-                _staminaUpdate.Invoke(_currentStamina);
+                _staminaUpdate.Invoke(_currentStamina / _stats.Stamina);
             }
         }
     }
