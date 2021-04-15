@@ -10,7 +10,7 @@ public class HitSource : MonoBehaviour
 
     List<IHittable> hitObjects = new List<IHittable>();
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
         IHittable hitObject = other.GetComponent<IHittable>();
         GameObject hitGameObject = other.gameObject;

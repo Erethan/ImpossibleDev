@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2895870153404707557}
   - component: {fileID: 1442633549553977947}
+  - component: {fileID: 6915924434224343748}
   m_Layer: 0
   m_Name: Sword Slash 1
   m_TagString: Untagged
@@ -45,6 +46,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _secondsToLive: 1
+--- !u!114 &6915924434224343748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2895870153404707546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c449715ac773474db95d06ed814a21c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitType: {fileID: 11400000, guid: c191360f5b6b1aa4890e3a1d0ce4c997, type: 2}
+  _damage: 1
 --- !u!1 &2895870154122471701
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +72,7 @@ GameObject:
   - component: {fileID: 2895870154122471702}
   - component: {fileID: 2895870154122471703}
   - component: {fileID: 1065972700575276129}
-  - component: {fileID: 990473862164802483}
+  - component: {fileID: 3651638482298945122}
   m_Layer: 0
   m_Name: Closed Sprite Shape
   m_TagString: Untagged
@@ -251,7 +266,7 @@ PolygonCollider2D:
       - {x: -0.30571947, y: -0.65282106}
       - {x: -0.3077568, y: -0.5965939}
       - {x: -0.30723608, y: -0.60591996}
---- !u!114 &990473862164802483
+--- !u!114 &3651638482298945122
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,8 +275,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 2895870154122471701}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c449715ac773474db95d06ed814a21c, type: 3}
+  m_Script: {fileID: 11500000, guid: 52ca1e57284038c47b9b225ed550b933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitType: {fileID: 11400000, guid: c191360f5b6b1aa4890e3a1d0ce4c997, type: 2}
-  _damage: 1
+  _collisionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  _collisionExit:
+    m_PersistentCalls:
+      m_Calls: []
+  _triggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6915924434224343748}
+        m_TargetAssemblyTypeName: HitSource, Assembly-CSharp
+        m_MethodName: OnTriggerEnter2D
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _triggerExit:
+    m_PersistentCalls:
+      m_Calls: []
