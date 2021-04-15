@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitSource : MonoBehaviour
+public class HitBehaviour : MonoBehaviour
 {
     [SerializeField] private HitType _hitType;
 
     [SerializeField] private float _damage;
 
     List<IHittable> hitObjects = new List<IHittable>();
+
+    public Character2D Owner { get; set; }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -24,6 +26,9 @@ public class HitSource : MonoBehaviour
         if (hitObject == null)
             return;
 
+        if(hitGameObject == Owner.gameObject)
+            return;
+
         if (hitObjects.Contains(hitObject))
             return;
 
@@ -34,6 +39,7 @@ public class HitSource : MonoBehaviour
             SourceGameObject = gameObject,
             HitGameObject = hitGameObject
         };
+
         hitObjects.Add(hitObject);
         hitObject.Hit(hit);
     }
