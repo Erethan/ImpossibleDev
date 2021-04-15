@@ -8,6 +8,7 @@ public class Avatar : Character2D, IHittable
     [SerializeField] protected AimDirection2D _aiming = default;
     [SerializeField] protected AvatarBlocker blocker = default;
     [SerializeField] protected AvatarAttacks _basicAttacks = default;
+    [SerializeField] protected AvatarDash _dash = default;
 
     protected bool _staggered = false;
     protected bool _defenseOrdered = false;
@@ -175,12 +176,16 @@ public class Avatar : Character2D, IHittable
     {
         if (!context.performed)
             return;
+        if (CurrentState != State.Free)
+            return;
 
-        if (CurrentState == State.Free)
-        {
-            _animator.SetInteger(AnimationConventions.ActionTypeKey, 2);
-            ChangeState(State.Acting);
-        }
+        if (CurrentStamina <= 0)
+            return;
+
+        _dash.StartDash();
+        _animator.SetInteger(AnimationConventions.ActionTypeKey, 2);
+        ChangeState(State.Acting);
+        
     }
 
 

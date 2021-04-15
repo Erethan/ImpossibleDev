@@ -1300,6 +1300,7 @@ MonoBehaviour:
   _aiming: {fileID: 7688874968109479822}
   blocker: {fileID: 926277959}
   _basicAttacks: {fileID: 761631642}
+  _dash: {fileID: 761631641}
 --- !u!114 &761631642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1339,9 +1340,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f1f555cdabd94429115b0196606144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 3141504614092318818}
   _rigidbody: {fileID: 4434558609558068714}
   _movement: {fileID: 1456890425893098281}
   _speed: 30
+  _staminaCost: 15
 --- !u!1 &5701028384055678686
 GameObject:
   m_ObjectHideFlags: 0

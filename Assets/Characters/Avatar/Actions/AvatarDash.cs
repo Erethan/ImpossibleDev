@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class AvatarDash : MonoBehaviour
 {
-
+    [SerializeField] private Character2D _character;
     [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private VelocityMovement _movement;
     
     [SerializeField] private float _speed;
-    
+    [SerializeField] private float _staminaCost;
+
+
+    public void StartDash()
+    {
+        _character.SpendStamina(_staminaCost);
+    }
 
     private void OnDash()
     {
