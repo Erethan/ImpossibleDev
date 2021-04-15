@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,14 +7,15 @@ public class InputWindowStateMachineBehaviour : StateMachineBehaviour
 {
     [SerializeField] private InputActionAsset _inputAsset;
     [SerializeField] private string _actionName;
-    [SerializeField] private string _parameterName;
-    [SerializeField] private int _value;
-
+    [SerializeField] private string _bindingTag;
 
     [SerializeField] [Range(0, 1)] private float _normalizedStart;
     [SerializeField] [Range(0, 1)] private float _normalizedFinish;
 
-    private Animator _animator;
+    public string BindingTag => _bindingTag;
+
+    public event Action ActionPerformed;
+
     private bool _initialized;
     private bool _allowInput;
 
@@ -23,14 +23,16 @@ public class InputWindowStateMachineBehaviour : StateMachineBehaviour
     {
         _inputAsset.FindAction(_actionName).performed += OnInputPerform;
         _initialized = true;
+
     }
 
     private void OnInputPerform(InputAction.CallbackContext context)
     {
-        if (_allowInput)
-        {
-            _animator.SetInteger(_parameterName, _value);
-        }
+        if (!_allowInput)
+            return;
+        Debug.Log($"Perform input ({_bindingTag})");
+        ActionPerformed?.Invoke();
+
     }
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -40,7 +42,6 @@ public class InputWindowStateMachineBehaviour : StateMachineBehaviour
             Initialize();
         }
 
-        _animator = animator;
         _allowInput = false;
         float startDelay = _normalizedStart * stateInfo.length;
         float duration= (_normalizedFinish - _normalizedStart) * stateInfo.length;

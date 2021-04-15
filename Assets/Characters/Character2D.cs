@@ -20,11 +20,19 @@ public class Character2D : MonoBehaviour, IHittable
         }
         protected set
         {
-            bool valueChanged = _currentHealth != value;
-            _currentHealth = value;
+            float targetValue = Mathf.Clamp(value, 0, _stats.Health);
+            bool valueChanged = _currentHealth != targetValue;
+            if (targetValue < _currentHealth)
+            {
+                _lastHealthSpentTime = Time.time;
+            }
+
+
+            _currentHealth = targetValue;
+
             if(valueChanged)
             {
-                _healthUpdate.Invoke(_currentHealth);
+                _healthUpdate.Invoke(_currentHealth/_stats.Health);
             }
         }
     }
@@ -38,11 +46,17 @@ public class Character2D : MonoBehaviour, IHittable
         }
         protected set
         {
-            bool valueChanged = _currentMana != value;
-            _currentMana = value;
+            float targetValue = Mathf.Clamp(value, 0, _stats.Mana);
+            bool valueChanged = _currentMana != targetValue;
+            if (targetValue < _currentMana)
+            {
+                _lastManaSpentTime = Time.time;
+            }
+
+            _currentMana = targetValue;
             if (valueChanged)
             {
-                _manaUpdate.Invoke(_currentMana);
+                _manaUpdate.Invoke(_currentMana / _stats.Mana);
             }
         }
     }
@@ -56,22 +70,34 @@ public class Character2D : MonoBehaviour, IHittable
         }
         protected set
         {
-            bool valueChanged = _currentStamina != value;
-            _currentStamina = value;
+            float targetValue = Mathf.Clamp(value, 0, _stats.Stamina);
+            bool valueChanged = _currentStamina != targetValue;
+            if(targetValue < _currentStamina)
+            {
+                _lastStaminaSpentTime = Time.time;
+            }
+
+            _currentStamina = targetValue;
             if (valueChanged)
             {
-                _staminaUpdate.Invoke(_currentStamina);
+                _staminaUpdate.Invoke(_currentStamina / _stats.Stamina);
             }
         }
     }
-    
+
+    public Animator Animator => _animator;
 
     protected bool _isAlive;
     public bool IsAlive => _isAlive;
 
+    private float _lastHealthSpentTime;
+    private float _lastManaSpentTime;
+    private float _lastStaminaSpentTime;
+
     protected virtual void Update()
     {
         UpdateAnimationParameters();
+        ResourcesRegenaration();
     }
 
     protected virtual void Awake()
@@ -90,6 +116,24 @@ public class Character2D : MonoBehaviour, IHittable
     protected virtual void UpdateAnimationParameters()
     {
         _animator.SetFloat(AnimationConventions.SpeedKey, _rigidbody.velocity.magnitude);
+    }
+    
+    protected virtual void ResourcesRegenaration()
+    {
+        if (Time.time > _lastHealthSpentTime + _stats.HealthRegenDelay)
+        {
+            CurrentHealth += _stats.HealthRegen * Time.deltaTime;
+        }
+
+        if (Time.time > _lastManaSpentTime + _stats.ManaRegenDelay)
+        {
+            CurrentStamina += _stats.ManaRegen * Time.deltaTime;
+        }
+
+        if (Time.time > _lastStaminaSpentTime + _stats.StaminaRegenDelay)
+        {
+            CurrentStamina += _stats.StaminaRegen * Time.deltaTime;
+        }
     }
 
     public virtual void Hit(Hit hit)
@@ -113,6 +157,11 @@ public class Character2D : MonoBehaviour, IHittable
     {
         _isAlive = false;
         _animator.SetInteger(AnimationConventions.HitTypeKey, AnimationConventions.DeathHitTypeValue);
+    }
+
+    public virtual void SpendStamina(float value)
+    {
+        CurrentStamina = Mathf.Clamp(CurrentStamina - value, 0, _stats.Stamina);
     }
 
 }
