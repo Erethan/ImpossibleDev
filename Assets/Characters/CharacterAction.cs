@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public struct CharacterAction 
 {
-    public GameObject Prefab;
+    public HitBehaviour Prefab;
     public float StaminaCost;
 
     /// <summary>

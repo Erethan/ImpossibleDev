@@ -880,6 +880,22 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3141504614092318818, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _healthUpdate.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141504614092318818, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _staminaUpdate.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141504614092318818, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _healthUpdate.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141504614092318818, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _staminaUpdate.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141504614092318818, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
       propertyPath: _healthUpdate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1952203636}
@@ -887,6 +903,38 @@ PrefabInstance:
       propertyPath: _staminaUpdate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 744097682}
+    - target: {fileID: 3141504614092318818, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _healthUpdate.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141504614092318818, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _healthUpdate.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_fillAmount
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141504614092318818, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _staminaUpdate.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141504614092318818, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _staminaUpdate.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_fillAmount
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141504614092318818, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _healthUpdate.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141504614092318818, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _staminaUpdate.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Image, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141504614092318818, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _healthUpdate.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141504614092318818, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
+      propertyPath: _staminaUpdate.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5427608740679048921, guid: 4fd78a0603fe35345bd50a07a66265b9, type: 3}
       propertyPath: m_Name
       value: Avatar

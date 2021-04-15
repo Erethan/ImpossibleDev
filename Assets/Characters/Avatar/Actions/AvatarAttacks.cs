@@ -14,7 +14,7 @@ public class AvatarAttacks : MonoBehaviour
 
     [SerializeField] private Transform _weaponTransform;
 
-    private GameObject _currentSlash;
+    private HitBehaviour _currentSlash;
 
     void Start()
     {
@@ -66,14 +66,14 @@ public class AvatarAttacks : MonoBehaviour
     {
 
         _currentSlash = Instantiate(_firstAttack.Prefab, _weaponTransform);
+        _currentSlash.Owner = _character;
         _currentSlash.transform.SetParent(null);
     }
 
     private void OnAttack2()
     {
-       
-
         _currentSlash = Instantiate(_secondAttack.Prefab, _weaponTransform);
+        _currentSlash.Owner = _character;
         _currentSlash.transform.SetParent(null);
     }
 
@@ -81,6 +81,7 @@ public class AvatarAttacks : MonoBehaviour
     {
         
         _currentSlash = Instantiate(_thirdAttack.Prefab, _weaponTransform);
+        _currentSlash.Owner = _character;
         _currentSlash.transform.SetParent(null);
     }
 }
